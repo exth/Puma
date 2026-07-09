@@ -1,0 +1,11 @@
+disabled_rules:
+  - trailing_whitespace
+  - vertical_whitespace
+  - identifier_name
+  - opening_brace
+
+opt_in_rules:
+  - empty_count
+
+excluded:
+  - PumaTests
