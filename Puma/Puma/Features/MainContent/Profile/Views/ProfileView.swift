@@ -1,18 +1,26 @@
-//
-//  ProfileView.swift
-//  Puma
-//
-//  Created by Вадим on 10.07.2026.
-//
-
 import SwiftUI
 
+
 struct ProfileView: View {
+    @State private var vm: ProfileViewModel
+
+    init(session: SessionManager) {
+        _vm = State(initialValue: ProfileViewModel(session: session))
+    }
+    
+    
     var body: some View {
         Text("ProfileView")
+        
+        Button {
+            vm.logOut()
+        } label: {
+            Text("Log Out")
+        }
     }
 }
 
+
 #Preview {
-    ProfileView()
+    ProfileView(session: SessionManager())
 }

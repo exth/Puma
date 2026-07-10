@@ -8,6 +8,7 @@ final class ProfileViewModel {
         self.session = session
     }
     
+    
     func logOut() {
         session.logOut()
     }

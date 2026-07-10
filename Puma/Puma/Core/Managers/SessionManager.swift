@@ -12,11 +12,11 @@ enum AuthState {
 final class SessionManager {
     private(set) var authState: AuthState = .loggedOut
     
-    private let hasSeenInfoKey = "hasCompleetdFirstLogin" // 1) Что это и зачем
+    private let hasSeenInfoKey = "hasCompledFirstLogin"
     private let userDefaults = UserDefaults.standard
     
     func login(isNewUser: Bool) {
-        if isNewUser || !userDefaults.bool(forKey: hasSeenInfoKey) { // 2) зачем нам проверка, котороая после ||?
+        if isNewUser || !userDefaults.bool(forKey: hasSeenInfoKey) {
             authState = .firstLogin
         } else {
             authState = .loggedIn
