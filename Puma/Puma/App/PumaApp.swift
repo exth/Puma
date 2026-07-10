@@ -15,9 +15,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct PumaApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @State private var session = SessionManager()
+    
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environment(session) // 3) что и зачем 'environment'?
         }
     }
 }
