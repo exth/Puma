@@ -1,22 +1,38 @@
 import Foundation
 
 
+@Observable
 final class EmailInputViewModel {
     var email = ""
-    var errorMessage: String?
+    var validationError: EmailValidationError?
     
     
     func continueTapped(coordinator: AuthFlowCoordinator) {
-        guard isValidEmail(email) else {
-            errorMessage = "Введите корректный email"
+        guard let validEmail = validatedEmail() else {
             return
         }
-        coordinator.showPasswordView(email: email)
+        coordinator.showPasswordView(email: validEmail)
     }
     
-    // MARK: CДЕЛАТЬ НОРМАЛЬНУЮ ПРОВЕРКУ
-    private func isValidEmail(_ email: String) -> Bool {
-        email.contains("@") && email.contains(".")
-        // !!>> заменить на нормальную regex-проверку
+    private func validatedEmail() -> String? {
+        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmedEmail.isEmpty else {
+            validationError = .empty
+            return nil
+        }
+        
+        guard isValidFormat(trimmedEmail) else {
+            validationError = .invalidFormat
+            return nil
+        }
+        
+        validationError = nil
+        return trimmedEmail
+    }
+    
+    private func isValidFormat(_ email: String) -> Bool {
+        let pattern = #"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,64}$"#
+        return email.range(of: pattern, options: .regularExpression) != nil
     }
 }
