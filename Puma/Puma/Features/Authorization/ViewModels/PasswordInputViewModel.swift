@@ -7,7 +7,7 @@ final class PasswordInputViewModel {
     
     let email: String
     var password = ""
-    var errorMessage: String?
+    var validationError: PasswordValidationError?
     
     
     init(email: String, coordinator: AuthFlowCoordinator) {
@@ -16,12 +16,42 @@ final class PasswordInputViewModel {
     }
     
     
-    // MARK: - добавить нормальную валидацию пароля -
-    func continueTupped() {
-        guard password.count >= 6 else {
-            errorMessage = "Пароль должен быть не короче 6 символов"
+    func continueTapped() {
+        guard let validPassword = validatedPassword() else { 
             return
         }
+        // MARK: - обновить, когда появится сервис -
+        _ = validPassword // передать в запрос на сервер, когда будет сервис
+
         coordinator.showVerificationCodeView(email: email)
     }
+    
+    private func validatedPassword() -> String? {
+        let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmedPassword.isEmpty else {
+            validationError = .empty
+            return nil
+        }
+        
+        guard trimmedPassword.count >= 10 else {
+            validationError = .tooShort
+            return nil
+        }
+        
+        guard trimmedPassword.contains(where: { $0.isNumber }) else {
+            validationError = .missingNumber
+            return nil
+        }
+        
+        let specialCharacters = CharacterSet(charactersIn: "!@#$%^&*()_+-=[]{}|;:'\",.<>/?`~\\")
+        guard trimmedPassword.rangeOfCharacter(from: specialCharacters) != nil else {
+            validationError = .missingCharacter
+            return nil
+        }
+        
+        validationError = nil
+        return trimmedPassword
+    }
 }
+
