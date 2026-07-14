@@ -65,19 +65,14 @@ struct VerificationCodeView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    coordinator.close()
+                    isShowingCloseConfirmation = true
                 } label: {
                     Image(systemName: "xmark")
                 }
             }
         }
-        .alert("Leave Sign Up?", isPresented: $isShowingCloseConfirmation) {
-            Button("Close", role: .destructive) {
-                coordinator.close()
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("If you close now, your progress will be lost and you'll need to start over.")
+        .closeConfirmationAlert(isPresented: $isShowingCloseConfirmation, title: "Leave Sign Up?") {
+            coordinator.close()
         }
         .appBackground()
     }
@@ -94,8 +89,6 @@ struct VerificationCodeView: View {
                     .foregroundStyle(Color.black)
             }
         }
-        .transition(.opacity.combined(with: .scale(scale: 0.9)))
-        .animation(.easeInOut(duration: 0.25), value: vm.isTimerFinished)
     }
     
     private var resendButton: some View {

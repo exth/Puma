@@ -6,7 +6,6 @@ struct PasswordInputView: View {
     
     @State private var vm: PasswordInputViewModel
     @FocusState private var isPasswordFocused: Bool
-    @State private var isPasswordVisible = false
     
     init(coordinator: AuthFlowCoordinator, email: String ) {
         self.coordinator = coordinator
@@ -36,8 +35,12 @@ struct PasswordInputView: View {
                 
                 VStack(spacing: 5) {
                     emailField
-                    passwordField
                     
+                    SecurePasswordFieldBox(
+                        text: $vm.password,
+                        errorMessage: vm.validationError?.errorDescription,
+                        focusedField: $isPasswordFocused
+                    )
                     
                     PrimaryButton(title: "Continue") {
                         vm.continueTapped()
@@ -103,69 +106,6 @@ struct PasswordInputView: View {
                 )
         }
     }
-    
-    
-    private var passwordField: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Password")
-                .font(.caption)
-                .padding(.leading)
-            
-            ZStack(alignment: .trailing) {
-                Group {
-                    if isPasswordVisible {
-                        TextField("Enter password", text: $vm.password)
-                    } else {
-                        SecureField("Enter password", text: $vm.password)
-                    }
-                }
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .focused($isPasswordFocused)
-                .padding()
-                .padding(.trailing, 36)
-                .frame(height: 52)
-                .background(Color.backgroundSecondary)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(fieldBorderColor, lineWidth: 2)
-                )
-                
-                Button {
-                    withAnimation(.easeInOut(duration: 0.15)) {
-                        isPasswordVisible.toggle()
-                    }
-                } label: {
-                    Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
-                        .foregroundStyle(Color.textSecondary)
-                        .contentTransition(.symbolEffect(.replace))
-                }
-                .padding(.trailing, 16)
-            }
-            
-            HStack(spacing: 5) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                Text(vm.validationError?.errorDescription ?? " ")
-            }
-            .font(.caption)
-            .foregroundStyle(Color.errorRed)
-            .opacity(vm.validationError == nil ? 0 : 1)
-            .frame(height: 16, alignment: .leading)
-            .padding(.leading, 5)
-        }
-    }
-    
-    
-    private var fieldBorderColor: Color {
-        if vm.validationError != nil {
-            return Color.errorRed
-        }
-        return isPasswordFocused ? Color.textSecondary : Color.borderDefault
-    }
-    
-    
-    
 }
 
 

@@ -17,14 +17,20 @@ struct EmailInputView: View {
             }
             .padding(.top, isEmailFocused ? 18 : 24)
             
-            VStack(spacing: 24) {
+            VStack(spacing: isEmailFocused ? 10 : 24) {
                 VStack(spacing: 5) {
-                    emailField
+                    EmailFieldBox(
+                        text: $vm.email,
+                        errorMessage: vm.validationError?.errorDescription,
+                        focusedField: $isEmailFocused
+                    )
                     
                     PrimaryButton(title: "Continue") {
                         vm.continueTapped(coordinator: coordinator)
                         isEmailFocused = false
                     }
+                    
+                    createAccountButton
                 }
                 
                 DividerWithLabel()
@@ -63,35 +69,23 @@ struct EmailInputView: View {
         }
     }
     
-    private var emailField: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Email")
-                .font(.caption)
-                .padding(.leading)
+    
+    private var createAccountButton: some View {
+        HStack(spacing: 4) {
+            Text("Don't have an account?")
+                .foregroundStyle(Color.textSecondary.opacity(0.7))
             
-            TextField("Enter email", text: $vm.email)
-                .keyboardType(.emailAddress)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .focused($isEmailFocused)
-                .padding()
-                .background(Color.backgroundSecondary)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(isEmailFocused ? Color.textSecondary : Color.borderDefault, lineWidth: 2)
-                )
-            
-            HStack(spacing: 5) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                Text(vm.validationError?.errorDescription ?? " ")
+            Button {
+                isEmailFocused = false
+                vm.createAccountTapped(coordinator: coordinator)
+            } label: {
+                Text("Sign Up")
+                    .foregroundStyle(Color.textSecondary)
+                    .underline(color: Color.textSecondary)
             }
-            .font(.caption)
-            .foregroundStyle(Color.textSecondary)
-            .opacity(vm.validationError == nil ? 0 : 1)
-            .frame(height: 16, alignment: .leading)
-            .padding(.leading, 5)
         }
+        .font(.caption)
+        .padding(.top, isEmailFocused ? 2 : 6)
     }
 }
 

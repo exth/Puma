@@ -16,6 +16,10 @@ final class AuthFlowCoordinator {
         path.append(AuthScreens.verificationCodeView(email: email))
     }
     
+    func showSignInView(email: String) {
+        path.append(AuthScreens.signInView(email: email))
+    }
+    
     func goBack() {
         path.removeLast()
     }

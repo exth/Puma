@@ -20,7 +20,10 @@ struct PumaApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environment(session) // 3) что и зачем 'environment'?
+                .environment(session)
+                .onAppear {
+                    session.restoreSession()
+                }
         }
     }
 }

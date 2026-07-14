@@ -1,6 +1,7 @@
 import Foundation
 
 
+@Observable
 final class ProfileViewModel {
     private let session: SessionManager
     

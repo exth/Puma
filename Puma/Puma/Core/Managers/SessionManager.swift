@@ -1,7 +1,7 @@
-import Foundation
+import SwiftUI
 
 
-enum AuthState {
+enum AuthState: Equatable {
     case firstLogin
     case loggedIn
     case loggedOut
@@ -12,22 +12,35 @@ enum AuthState {
 final class SessionManager {
     private(set) var authState: AuthState = .loggedOut
     
-    private let hasSeenInfoKey = "hasCompledFirstLogin"
-    private let userDefaults = UserDefaults.standard
-    
-    func login(isNewUser: Bool) {
-        if isNewUser || !userDefaults.bool(forKey: hasSeenInfoKey) {
-            authState = .firstLogin
-        } else {
-            authState = .loggedIn
+    init() {
+        restoreSession()
+    }
+
+    func restoreSession() {
+        let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
+        
+        withAnimation(.easeInOut(duration: 0.35)) {
+            if isUserLoggedIn {
+                authState = .loggedIn
+            } else {
+                authState = .loggedOut
+            }
         }
     }
-    
-    func infoSeen() {
-        userDefaults.set(true, forKey: hasSeenInfoKey)
+
+    func completeAuthentication() {
+        UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+        
+        withAnimation(.easeInOut(duration: 0.35)) {
+            authState = .firstLogin
+        }
     }
-    
+
     func logOut() {
-        authState = .loggedOut
+        UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
+        
+        withAnimation(.easeInOut(duration: 0.35)) {
+            authState = .loggedOut
+        }
     }
 }

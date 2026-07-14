@@ -3,6 +3,7 @@ import SwiftUI
 
 struct AuthView: View {
     @State private var vm: AuthViewModel
+    @State private var logoOffset: CGFloat = 0   // ← добавляем
     
     init(session: SessionManager) {
         _vm = State(initialValue: AuthViewModel(session: session))
@@ -16,6 +17,7 @@ struct AuthView: View {
             Spacer()
             
             AppLogoView()
+                .offset(y: logoOffset)
             
             Spacer()
             
@@ -78,6 +80,14 @@ struct AuthView: View {
                 .interactiveDismissDisabled(true)
         }
         .ignoresSafeArea(edges: .bottom)
+        .onAppear {
+            withAnimation(.easeInOut(duration: 1.3).repeatForever(autoreverses: true)) {
+                logoOffset = -20
+            }
+        }
+        .onDisappear {
+            logoOffset = 0
+        }
     }
 }
 

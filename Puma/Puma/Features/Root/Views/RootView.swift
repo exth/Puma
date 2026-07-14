@@ -9,14 +9,18 @@ struct RootView: View {
             Color.backgroundPrimary
                 .ignoresSafeArea()
             
-            switch session.authState {
-            case .firstLogin:
-                MainTabView(startTab: .info)
-            case .loggedIn:
-                MainTabView(startTab: .catalog)
-            case .loggedOut:
-                AuthView(session: session)
+            Group {
+                switch session.authState {
+                case .firstLogin:
+                    MainTabView(startTab: .info)
+                case .loggedIn:
+                    MainTabView(startTab: .catalog)
+                case .loggedOut:
+                    AuthView(session: session)
+                }
             }
+            .transition(.opacity)
+
         }
     }
 }

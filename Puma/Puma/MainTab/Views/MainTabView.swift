@@ -31,11 +31,6 @@ struct MainTabView: View {
                 ProfileView(session: session)
             }
         }
-        .onAppear {
-            if vm.selectedTab == .info {
-                session.infoSeen()
-            }
-        }
     }
 }
 
