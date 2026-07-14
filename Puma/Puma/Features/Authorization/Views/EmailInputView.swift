@@ -27,7 +27,8 @@ struct EmailInputView: View {
                     }
                 }
                 
-                dividerSection
+                DividerWithLabel()
+                    .padding(.horizontal, 5)
                 
                 SocialAuthButtons()
             }
@@ -90,20 +91,6 @@ struct EmailInputView: View {
             .opacity(vm.validationError == nil ? 0 : 1)
             .frame(height: 16, alignment: .leading)
             .padding(.leading, 5)
-        }
-    }
-    
-    private var dividerSection: some View {
-        HStack(spacing: 12) {
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(Color.borderDefault)
-            Text("OR")
-                .font(.caption)
-                .foregroundColor(Color.textSecondary)
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(Color.borderDefault)
         }
     }
 }

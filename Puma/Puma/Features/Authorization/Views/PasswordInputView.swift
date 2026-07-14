@@ -15,8 +15,6 @@ struct PasswordInputView: View {
     
     
     var body: some View {
-        @Bindable var vm = vm
-        
         VStack(spacing: 0) {
             VStack(spacing: isPasswordFocused ? 5 : 25) {
                 AnimatedAuthLogo(isFocused: isPasswordFocused)
