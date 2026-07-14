@@ -8,7 +8,7 @@ final class VerificationCodeViewModel {
     private(set) var secondsRemaining: Int
     
     private var timer: Timer?
-    private let totalSeconds = 1
+    private let totalSeconds = 60
     
     init(email: String) {
         self.email = email
