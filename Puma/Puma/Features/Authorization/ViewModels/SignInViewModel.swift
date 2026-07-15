@@ -8,31 +8,62 @@ final class SignInViewModel {
     var passwordError: SignInPasswordError?
     var isLoading = false
     var isShowingResetAlert = false
-
+    
+    var isSendingResetLink = false
+    var resetError: String?
+    
     private let coordinator: AuthFlowCoordinator
     private let session: SessionManager
-
-    init(email: String, coordinator: AuthFlowCoordinator, session: SessionManager) {
+    private let authService: AuthServiceProtocol
+    
+    init(email: String, coordinator: AuthFlowCoordinator, session: SessionManager, authService: AuthServiceProtocol) {
         self.email = email
         self.coordinator = coordinator
         self.session = session
+        self.authService = authService
     }
-
-
+    
+    
     func continueTapped() {
         guard validatedPassword() else { return }
-
-        // MARK: - здесь подключим Firebase >> sign-in
-        session.completeAuthentication()
-        coordinator.close()
+        
+        Task {
+            isLoading = true
+            passwordError = nil
+            
+            do {
+                try await authService.signIn(email: email, password: password)
+                session.completeAuthentication()
+                coordinator.close()
+            } catch {
+                passwordError = .custom((error as NSError).firebaseAuthErrorMessage)
+            }
+            
+            isLoading = false
+        }
     }
-
+    
     func resetPasswordTapped() {
-        // MARK: - здесь подключим Firebase >> sendPasswordReset
-        isShowingResetAlert = true
+        guard !isSendingResetLink else {
+            return
+        }
+        
+        Task {
+            isSendingResetLink = true
+            resetError = nil
+            
+            do {
+                try await authService.sendPasswordReset(email: email)
+                isShowingResetAlert = true
+            } catch {
+                resetError = (error as NSError).firebaseAuthErrorMessage
+            }
+            
+            isSendingResetLink = false
+        }
     }
-
-
+    
+    
     private func validatedPassword() -> Bool {
         guard !password.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             passwordError = .empty

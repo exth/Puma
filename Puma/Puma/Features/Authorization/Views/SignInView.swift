@@ -4,15 +4,17 @@ import SwiftUI
 struct SignInView: View {
     let coordinator: AuthFlowCoordinator
     let session: SessionManager
+    let authService: AuthServiceProtocol
     
     @State private var vm: SignInViewModel
     @FocusState private var isPasswordFocused: Bool
     @State private var isShowingCloseConfirmation = false
     
-    init(coordinator: AuthFlowCoordinator, email: String, session: SessionManager) {
+    init(coordinator: AuthFlowCoordinator, email: String, session: SessionManager, authService: AuthServiceProtocol) {
         self.coordinator = coordinator
         self.session = session
-        _vm = State(initialValue: SignInViewModel(email: email, coordinator: coordinator, session: session))
+        self.authService = authService
+        _vm = State(initialValue: SignInViewModel(email: email, coordinator: coordinator, session: session, authService: authService))
     }
     
     
@@ -47,7 +49,7 @@ struct SignInView: View {
                     errorAndResetSection
                         .padding(.top, 6)
                     
-                    PrimaryButton(title: "Continue") {
+                    PrimaryButton(title: vm.isLoading ? "Signing in..." : "Continue") {
                         isPasswordFocused = false
                         vm.continueTapped()
                     }
@@ -122,24 +124,8 @@ struct SignInView: View {
         }
     }
     
-    private var resetPasswordButton: some View {
-        HStack {
-            Spacer()
-            Button {
-                isPasswordFocused = false
-                vm.resetPasswordTapped()
-            } label: {
-                Text("Reset Password")
-                    .font(.caption)
-                    .foregroundStyle(Color.textSecondary)
-                    .underline(color: Color.textSecondary)
-            }
-        }
-        .padding(.leading, 5)
-        .padding(.top, 4)
-    }
-    
     private var errorAndResetSection: some View {
+        VStack(alignment: .trailing, spacing: 6) {
             HStack(alignment: .top, spacing: 10) {
                 if let errorDescription = vm.passwordError?.errorDescription {
                     FieldErrorText(message: errorDescription)
@@ -152,21 +138,27 @@ struct SignInView: View {
                     isPasswordFocused = false
                     vm.resetPasswordTapped()
                 } label: {
-                    Text("Reset Password")
+                    Text(vm.isSendingResetLink ? "Sending..." : "Reset Password")
                         .font(.caption)
                         .foregroundStyle(Color.textSecondary)
                         .underline(color: Color.textSecondary)
                 }
+                .disabled(vm.isSendingResetLink)
                 .layoutPriority(1) // Кнопка имеет приоритет и не будет сжиматься длинной ошибкой
             }
-            .padding(.horizontal, 5)
-            .animation(.easeInOut(duration: 0.2), value: vm.passwordError)
+            
+            if let resetError = vm.resetError {
+                FieldErrorText(message: resetError)
+            }
         }
+        .padding(.horizontal, 5)
+        .animation(.easeInOut(duration: 0.2), value: vm.passwordError)
+    }
 }
 
 
 #Preview {
     NavigationStack {
-        SignInView(coordinator: AuthFlowCoordinator(), email: "sss@mail.ru", session: SessionManager())
+        SignInView(coordinator: AuthFlowCoordinator(), email: "sss@mail.ru", session: SessionManager(), authService: FirebaseAuthService())
     }
 }

@@ -7,7 +7,7 @@ enum AuthState: Equatable {
     case loggedOut
 }
 
-
+@MainActor
 @Observable
 final class SessionManager {
     private(set) var authState: AuthState = .loggedOut

@@ -3,6 +3,8 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(SessionManager.self) private var session
+    @Environment(FirebaseAuthService.self) private var authService
+    
     
     var body: some View {
         ZStack {
@@ -16,7 +18,7 @@ struct RootView: View {
                 case .loggedIn:
                     MainTabView(startTab: .catalog)
                 case .loggedOut:
-                    AuthView(session: session)
+                    AuthView(session: session, authService: authService)
                 }
             }
             .transition(.opacity)

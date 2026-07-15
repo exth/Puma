@@ -1,12 +1,16 @@
 import SwiftUI
+import AuthenticationServices
 
 
 struct AuthView: View {
     @State private var vm: AuthViewModel
-    @State private var logoOffset: CGFloat = 0   // ← добавляем
+    @State private var logoOffset: CGFloat = 0
     
-    init(session: SessionManager) {
-        _vm = State(initialValue: AuthViewModel(session: session))
+    @State private var currentNonce: String?
+
+    
+    init(session: SessionManager, authService: AuthServiceProtocol) {
+        _vm = State(initialValue: AuthViewModel(session: session, authService: authService))
     }
     
     
@@ -29,21 +33,9 @@ struct AuthView: View {
                 
                 VStack(spacing: 12) {
                     // MARK: ЗАМЕНИТЬ НА APPLE
-                    Button {
-                        //
-                    } label: {
-                        Text("Continue with Apple")
-                            .foregroundStyle(Color.black)
-                            .fontWeight(.semibold)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.white)
-                            )
-                    }
+                    appleButton
                     
-                    // MARK: ЗАМЕНИТЬ НА GOOGLT
+                    // MARK: ЗАМЕНИТЬ НА GOOGLE
                     Button {
                         //
                     } label: {
@@ -89,10 +81,33 @@ struct AuthView: View {
             logoOffset = 0
         }
     }
+    
+    
+    private var appleButton: some View {
+        SignInWithAppleButton(
+            .signIn,
+            onRequest: { request in
+                let nonce = randomNonceString()
+                currentNonce = nonce
+                request.requestedScopes = [.fullName, .email]
+                request.nonce = sha256(nonce)
+            },
+            onCompletion: { result in
+                Task {
+                    await vm.handleAppleSignIn(result: result, nonce: currentNonce)
+                    currentNonce = nil
+                }
+            }
+        )
+        .signInWithAppleButtonStyle(.white)
+        .frame(height: 50)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .disabled(vm.isLoading)
+    }
 }
 
 
 #Preview {
-    AuthView(session: SessionManager())
+    AuthView(session: SessionManager(), authService: FirebaseAuthService())
         .environment(SessionManager())
 }

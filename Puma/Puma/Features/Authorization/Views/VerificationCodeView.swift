@@ -4,13 +4,14 @@ import SwiftUI
 struct VerificationCodeView: View {
     @State private var vm: VerificationCodeViewModel
     @State private var isShowingCloseConfirmation = false
+    @Environment(\.scenePhase) private var scenePhase
     
     let coordinator: AuthFlowCoordinator
     
     
-    init(coordinator: AuthFlowCoordinator, email: String) {
+    init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol, session: SessionManager) {
         self.coordinator = coordinator
-        _vm = State(initialValue: VerificationCodeViewModel(email: email))
+        _vm = State(initialValue: VerificationCodeViewModel(email: email, authService: authService, session: session))
     }
     
     
@@ -44,6 +45,10 @@ struct VerificationCodeView: View {
                 
                 timerSection
                     .frame(height: 50)
+                
+                if let resendError = vm.resendError {
+                    FieldErrorText(message: resendError)
+                }
             }
             .padding(.top, 32)
             
@@ -75,6 +80,17 @@ struct VerificationCodeView: View {
             coordinator.close()
         }
         .appBackground()
+        .onAppear {
+            vm.startCheckingVerification()
+        }
+        .onDisappear {
+            vm.stopCheckingVerification()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                vm.checkVerificationNow()
+            }
+        }
     }
     
     
@@ -95,7 +111,7 @@ struct VerificationCodeView: View {
         Button {
             vm.resendLinkTapped()
         } label: {
-            Text("Resend link")
+            Text(vm.isResending ? "Sending..." : "Resend link")
                 .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.textSecondary)
@@ -109,12 +125,13 @@ struct VerificationCodeView: View {
                 )
                 .shadow(color: Color.textSecondary.opacity(0.2), radius: 5)
         }
+        .disabled(vm.isResending)
     }
 }
 
 
 #Preview {
     NavigationStack {
-        VerificationCodeView(coordinator: AuthFlowCoordinator(), email: "sss@gmail.com")
+        VerificationCodeView(coordinator: AuthFlowCoordinator(), email: "sss@gmail.com", authService: FirebaseAuthService(), session: SessionManager())
     }
 }

@@ -6,6 +6,7 @@ enum PasswordValidationError: LocalizedError {
     case tooShort
     case missingNumber
     case missingCharacter
+    case custom(String)
 
     var errorDescription: String? {
         switch self {
@@ -17,6 +18,8 @@ enum PasswordValidationError: LocalizedError {
             return "Password must contain a number"
         case .missingCharacter:
             return "Password must contain a special character"
+        case .custom(let message):
+            return message
         }
     }
 }

@@ -7,9 +7,9 @@ struct PasswordInputView: View {
     @State private var vm: PasswordInputViewModel
     @FocusState private var isPasswordFocused: Bool
     
-    init(coordinator: AuthFlowCoordinator, email: String ) {
+    init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol) {
         self.coordinator = coordinator
-        _vm = State(initialValue: PasswordInputViewModel(email: email, coordinator: coordinator))
+        _vm = State(initialValue: PasswordInputViewModel(email: email, coordinator: coordinator, authService: authService))
     }
     
     
@@ -42,10 +42,11 @@ struct PasswordInputView: View {
                         focusedField: $isPasswordFocused
                     )
                     
-                    PrimaryButton(title: "Continue") {
+                    PrimaryButton(title: vm.isLoading ? "Please wait..." : "Continue") {
                         vm.continueTapped()
                         isPasswordFocused = false
                     }
+                    .disabled(vm.isLoading)
                 }
                 .padding(.top, 32)
                 
@@ -111,6 +112,6 @@ struct PasswordInputView: View {
 
 #Preview {
     NavigationStack {
-        PasswordInputView(coordinator: AuthFlowCoordinator(), email: "sss@mail.ru")
+        PasswordInputView(coordinator: AuthFlowCoordinator(), email: "sss@mail.ru", authService: FirebaseAuthService())
     }
 }

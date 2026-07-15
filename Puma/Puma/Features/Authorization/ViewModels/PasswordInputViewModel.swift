@@ -4,26 +4,39 @@ import Foundation
 @Observable
 final class PasswordInputViewModel {
     private let coordinator: AuthFlowCoordinator
+    private let authService: AuthServiceProtocol
     
     let email: String
     var password = ""
     var validationError: PasswordValidationError?
+    var isLoading = false
     
     
-    init(email: String, coordinator: AuthFlowCoordinator) {
+    init(email: String, coordinator: AuthFlowCoordinator, authService: AuthServiceProtocol) {
         self.email = email
         self.coordinator = coordinator
+        self.authService = authService
     }
     
     
     func continueTapped() {
-        guard let validPassword = validatedPassword() else { 
+        guard let validPassword = validatedPassword() else {
             return
         }
-        // MARK: - обновить, когда появится сервис -
-        _ = validPassword // передать в запрос на сервер, когда будет сервис
 
-        coordinator.showVerificationCodeView(email: email)
+        Task {
+            isLoading = true
+            validationError = nil
+
+            do {
+                try await authService.signUp(email: email, password: validPassword)
+                coordinator.showVerificationCodeView(email: email)
+            } catch {
+                validationError = .custom((error as NSError).firebaseAuthErrorMessage)
+            }
+
+            isLoading = false
+        }
     }
     
     private func validatedPassword() -> String? {
@@ -54,4 +67,3 @@ final class PasswordInputViewModel {
         return trimmedPassword
     }
 }
-

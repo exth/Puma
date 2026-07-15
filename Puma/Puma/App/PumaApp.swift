@@ -16,11 +16,13 @@ struct PumaApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @State private var session = SessionManager()
+    @State private var authService = FirebaseAuthService()
     
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(session)
+                .environment(authService)
                 .onAppear {
                     session.restoreSession()
                 }
