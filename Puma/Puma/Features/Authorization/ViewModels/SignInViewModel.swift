@@ -25,11 +25,14 @@ final class SignInViewModel {
     
     
     func continueTapped() {
-        guard validatedPassword() else { return }
+        guard validatedPassword() else {
+            return
+        }
         
         Task {
             isLoading = true
             passwordError = nil
+            resetError = nil
             
             do {
                 try await authService.signIn(email: email, password: password)
@@ -51,6 +54,7 @@ final class SignInViewModel {
         Task {
             isSendingResetLink = true
             resetError = nil
+            passwordError = nil
             
             do {
                 try await authService.sendPasswordReset(email: email)
@@ -73,3 +77,5 @@ final class SignInViewModel {
         return true
     }
 }
+
+

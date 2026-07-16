@@ -25,7 +25,7 @@ struct EmailInputView: View {
                         focusedField: $isEmailFocused
                     )
                     
-                    PrimaryButton(title: "Continue") {
+                    PrimaryButton(title: "Sign In") {
                         vm.continueTapped(coordinator: coordinator)
                         isEmailFocused = false
                     }
@@ -36,7 +36,10 @@ struct EmailInputView: View {
                 DividerWithLabel()
                     .padding(.horizontal, 5)
                 
-                SocialAuthButtons()
+                SocialAuthButtons(
+                    tappedOnApple: { coordinator.close() },
+                    tappedOnGoogle: { coordinator.close() }
+                )
             }
             .padding(.top, isEmailFocused ? 5 : 32)
             

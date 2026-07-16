@@ -3,11 +3,13 @@ import AuthenticationServices
 
 
 struct AuthView: View {
+    @Environment(SessionManager.self) private var session
+    @Environment(\.scenePhase) private var scenePhase
+    
     @State private var vm: AuthViewModel
-    @State private var logoOffset: CGFloat = 0
+    @State private var isLogoFloating = false
     
     @State private var currentNonce: String?
-
     
     init(session: SessionManager, authService: AuthServiceProtocol) {
         _vm = State(initialValue: AuthViewModel(session: session, authService: authService))
@@ -20,8 +22,10 @@ struct AuthView: View {
         VStack {
             Spacer()
             
+            
             AppLogoView()
-                .offset(y: logoOffset)
+                .offset(y: isLogoFloating ? -20 : 0)
+                .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true), value: isLogoFloating)
             
             Spacer()
             
@@ -60,12 +64,18 @@ struct AuthView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .onAppear {
-            withAnimation(.easeInOut(duration: 1.3).repeatForever(autoreverses: true)) {
-                logoOffset = -20
-            }
+            isLogoFloating = true
         }
         .onDisappear {
-            logoOffset = 0
+            isLogoFloating = false
+        }
+        .task(id: scenePhase) {
+            guard scenePhase == .active else {
+                return
+            }
+            isLogoFloating = false
+            try? await Task.sleep(for: .milliseconds(50))
+            isLogoFloating = true
         }
     }
     
@@ -104,7 +114,7 @@ struct AuthView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 16, height: 16)
-
+                
                 Text("Sign in with Google")
                     .font(.system(size: 19, weight: .medium))
                     .foregroundStyle(Color.black)

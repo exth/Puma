@@ -56,7 +56,10 @@ struct VerificationCodeView: View {
                 DividerWithLabel()
                     .padding(.horizontal)
                 
-                SocialAuthButtons()
+                SocialAuthButtons(
+                        tappedOnApple: { isShowingCloseConfirmation = true },
+                        tappedOnGoogle: { isShowingCloseConfirmation = true }
+                    )
             }
             .padding(.top, 10)
             
