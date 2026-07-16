@@ -6,16 +6,10 @@ struct EmailInputView: View {
     
     @State private var vm = EmailInputViewModel()
     @FocusState private var isEmailFocused: Bool
-        
+    
     var body: some View {
         VStack(spacing: 0) {
-            VStack(spacing: isEmailFocused ? 0 : 25) {
-                AnimatedAuthLogo(isFocused: isEmailFocused)
-                
-                Text("Sign In or Sign Up")
-                    .fontWeight(.medium)
-            }
-            .padding(.top, isEmailFocused ? 18 : 24)
+            headerSection
             
             VStack(spacing: isEmailFocused ? 10 : 24) {
                 VStack(spacing: 5) {
@@ -89,6 +83,16 @@ struct EmailInputView: View {
         }
         .font(.caption)
         .padding(.top, isEmailFocused ? 2 : 6)
+    }
+    
+    private var headerSection: some View {
+        VStack(spacing: isEmailFocused ? 0 : 25) {
+            AnimatedAuthLogo(isFocused: isEmailFocused)
+
+            Text("Sign In or Sign Up")
+                .fontWeight(.medium)
+        }
+        .padding(.top, isEmailFocused ? 18 : 24)
     }
 }
 

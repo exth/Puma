@@ -7,6 +7,7 @@ enum AuthState: Equatable {
     case loggedOut
 }
 
+
 @MainActor
 @Observable
 final class SessionManager {
@@ -16,6 +17,7 @@ final class SessionManager {
         restoreSession()
     }
 
+    
     func restoreSession() {
         let isUserLoggedIn = UserDefaults.standard.bool(forKey: "isUserLoggedIn")
         

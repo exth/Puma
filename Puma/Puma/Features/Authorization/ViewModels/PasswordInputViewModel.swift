@@ -11,7 +11,6 @@ final class PasswordInputViewModel {
     var validationError: PasswordValidationError?
     var isLoading = false
     
-    
     init(email: String, coordinator: AuthFlowCoordinator, authService: AuthServiceProtocol) {
         self.email = email
         self.coordinator = coordinator

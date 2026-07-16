@@ -59,7 +59,6 @@ final class VerificationCodeViewModel {
         }
     }
 
-
     func startCheckingVerification() {
         checkVerificationNow()
 

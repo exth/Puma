@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct AnimatedAuthLogo: View {
     let isFocused: Bool
     
@@ -19,8 +20,7 @@ struct AnimatedAuthLogo: View {
     }
 }
 
+
 #Preview {
     AnimatedAuthLogo(isFocused: true)
 }
-
-

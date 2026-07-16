@@ -24,9 +24,6 @@ struct PumaApp: App {
             RootView()
                 .environment(session)
                 .environment(authService)
-                .onAppear {
-                    session.restoreSession()
-                }
                 .onOpenURL { url in
                     _ = GIDSignIn.sharedInstance.handle(url)
                 }

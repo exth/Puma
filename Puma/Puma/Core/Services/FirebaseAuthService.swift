@@ -5,7 +5,6 @@ import GoogleSignIn
 
 @Observable
 final class FirebaseAuthService: AuthServiceProtocol {
-    
     func signUp(email: String, password: String) async throws {
         let result = try await Auth.auth().createUser(withEmail: email, password: password)
         try await result.user.sendEmailVerification()
@@ -34,7 +33,6 @@ final class FirebaseAuthService: AuthServiceProtocol {
         try await Auth.auth().sendPasswordReset(withEmail: email)
     }
     
-    
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws {
         let credential = OAuthProvider.appleCredential(
             withIDToken: idToken,
@@ -51,7 +49,6 @@ final class FirebaseAuthService: AuthServiceProtocol {
             try await changeRequest?.commitChanges()
         }
     }
-    
     
     func signInWithGoogle() async throws {
         guard let clientID = FirebaseApp.app()?.options.clientID else {

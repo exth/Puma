@@ -12,24 +12,9 @@ struct PasswordInputView: View {
         _vm = State(initialValue: PasswordInputViewModel(email: email, coordinator: coordinator, authService: authService))
     }
     
-    
     var body: some View {
         VStack(spacing: 0) {
-            VStack(spacing: isPasswordFocused ? 5 : 25) {
-                AnimatedAuthLogo(isFocused: isPasswordFocused)
-                
-                VStack(spacing: 5) {
-                    Text("Create Account")
-                        .fontWeight(.medium)
-                    
-                    Text("You must set a password to continue")
-                        .font(.caption)
-                        .foregroundStyle(Color.textSecondary.opacity(0.7))
-                }
-                
-            }
-            .padding(.top, 24)
-            
+            headerSection
             
             VStack(spacing: 24) {
                 
@@ -88,6 +73,22 @@ struct PasswordInputView: View {
         }
     }
     
+    
+    private var headerSection: some View {
+        VStack(spacing: isPasswordFocused ? 5 : 25) {
+            AnimatedAuthLogo(isFocused: isPasswordFocused)
+
+            VStack(spacing: 5) {
+                Text("Create Account")
+                    .fontWeight(.medium)
+
+                Text("You must set a password to continue")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary.opacity(0.7))
+            }
+        }
+        .padding(.top, 24)
+    }
     
     private var emailField: some View {
         VStack(alignment: .leading, spacing: 6) {

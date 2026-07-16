@@ -6,6 +6,7 @@ struct TermsOfUseButton: View {
 
     @State private var isShowingTerms = false
 
+    
     var body: some View {
         Button {
             onTap()
@@ -22,6 +23,7 @@ struct TermsOfUseButton: View {
         }
     }
 }
+
 
 #Preview {
     TermsOfUseButton()

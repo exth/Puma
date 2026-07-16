@@ -35,6 +35,7 @@ struct EmailFieldBox: View {
         .animation(.easeInOut(duration: 0.2), value: errorMessage)
     }
 
+    
     private var borderColor: Color {
         if errorMessage != nil { return Color.errorRed }
         return focusedField.wrappedValue ? Color.textSecondary : Color.borderDefault

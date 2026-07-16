@@ -3,25 +3,22 @@ import AuthenticationServices
 
 
 struct AuthView: View {
-    @Environment(SessionManager.self) private var session
-    @Environment(\.scenePhase) private var scenePhase
-    
     @State private var vm: AuthViewModel
     @State private var isLogoFloating = false
-    
     @State private var currentNonce: String?
+    
+    @Environment(SessionManager.self) private var session
+    @Environment(\.scenePhase) private var scenePhase
     
     init(session: SessionManager, authService: AuthServiceProtocol) {
         _vm = State(initialValue: AuthViewModel(session: session, authService: authService))
     }
-    
     
     var body: some View {
         @Bindable var vm = vm
         
         VStack {
             Spacer()
-            
             
             AppLogoView()
                 .offset(y: isLogoFloating ? -20 : 0)
@@ -40,20 +37,7 @@ struct AuthView: View {
                     
                     googleButton
                     
-                    Button {
-                        vm.showEmailInput()
-                    } label: {
-                        Text("Sign In or Sign Up")
-                            .font(.system(size: 19, weight: .medium))
-                            .foregroundStyle(Color.white)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.textSecondary)
-                            )
-                    }
+                    signInOrUpButton
                 }
                 .padding(.horizontal)
             }
@@ -61,6 +45,20 @@ struct AuthView: View {
         .sheet(isPresented: $vm.isShowingEmailInput) {
             AuthFlowContainerView()
                 .interactiveDismissDisabled(true)
+        }
+        .alert("Error", isPresented: Binding(
+            get: {
+                vm.errorMessage != nil
+            },
+            set: {
+                if !$0 {
+                    vm.errorMessage = nil
+                }
+            }
+        )) {
+            Button("OK") { }
+        } message: {
+            Text(vm.errorMessage ?? "")
         }
         .ignoresSafeArea(edges: .bottom)
         .onAppear {
@@ -79,6 +77,23 @@ struct AuthView: View {
         }
     }
     
+    
+    private var signInOrUpButton: some View {
+        Button {
+            vm.showEmailInput()
+        } label: {
+            Text("Sign In or Sign Up")
+                .font(.system(size: 19, weight: .medium))
+                .foregroundStyle(Color.white)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.textSecondary)
+                )
+        }
+    }
     
     private var appleButton: some View {
         SignInWithAppleButton(

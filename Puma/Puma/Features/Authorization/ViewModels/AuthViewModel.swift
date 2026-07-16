@@ -7,7 +7,6 @@ final class AuthViewModel {
     private let session: SessionManager
     private let authService: AuthServiceProtocol
     
-    
     var isShowingEmailInput = false
     var isLoading = false
     var errorMessage: String?

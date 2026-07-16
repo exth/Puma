@@ -2,55 +2,23 @@ import SwiftUI
 
 
 struct VerificationCodeView: View {
+    let coordinator: AuthFlowCoordinator
+
     @State private var vm: VerificationCodeViewModel
     @State private var isShowingCloseConfirmation = false
+    
     @Environment(\.scenePhase) private var scenePhase
-    
-    let coordinator: AuthFlowCoordinator
-    
     
     init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol, session: SessionManager) {
         self.coordinator = coordinator
         _vm = State(initialValue: VerificationCodeViewModel(email: email, authService: authService, session: session))
     }
     
-    
     var body: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 25) {
-                AppLogoView(size: 125)
-                
-                VStack(spacing: 5) {
-                    Text("Check your email")
-                        .fontWeight(.medium)
-                    
-                    VStack(spacing: 0) {
-                        Text("We've sent a confirmation link to")
-                        Text(vm.email)
-                    }
-                    .font(.caption)
-                    .foregroundStyle(Color.textSecondary.opacity(0.7))
-                }
-                
-            }
-            .padding(.top, 24)
+            headerSection
             
-            
-            VStack(spacing: 10) {
-                VStack(spacing: 0) {
-                    Text("You can resend the code once")
-                    Text("the timer expires")
-                }
-                .font(.subheadline)
-                
-                timerSection
-                    .frame(height: 50)
-                
-                if let resendError = vm.resendError {
-                    FieldErrorText(message: resendError)
-                }
-            }
-            .padding(.top, 32)
+            resendSection
             
             VStack(spacing: 24) {
                 DividerWithLabel()
@@ -96,6 +64,43 @@ struct VerificationCodeView: View {
         }
     }
     
+    
+    private var headerSection: some View {
+        VStack(spacing: 25) {
+            AppLogoView(size: 125)
+
+            VStack(spacing: 5) {
+                Text("Check your email")
+                    .fontWeight(.medium)
+
+                VStack(spacing: 0) {
+                    Text("We've sent a confirmation link to")
+                    Text(vm.email)
+                }
+                .font(.caption)
+                .foregroundStyle(Color.textSecondary.opacity(0.7))
+            }
+        }
+        .padding(.top, 24)
+    }
+    
+    private var resendSection: some View {
+        VStack(spacing: 10) {
+            VStack(spacing: 0) {
+                Text("You can resend the code once")
+                Text("the timer expires")
+            }
+            .font(.subheadline)
+
+            timerSection
+                .frame(height: 50)
+
+            if let resendError = vm.resendError {
+                FieldErrorText(message: resendError)
+            }
+        }
+        .padding(.top, 32)
+    }
     
     private var timerSection: some View {
         Group {

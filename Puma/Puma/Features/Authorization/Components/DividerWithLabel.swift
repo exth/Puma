@@ -28,4 +28,3 @@ struct DividerWithLabel: View {
     DividerWithLabel()
         .padding(.horizontal)
 }
-

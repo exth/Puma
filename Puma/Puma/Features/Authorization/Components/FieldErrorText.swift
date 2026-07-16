@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct FieldErrorText: View {
     let message: String
 
@@ -14,6 +15,7 @@ struct FieldErrorText: View {
         .padding(.leading, 5)
     }
 }
+
 
 #Preview {
     FieldErrorText(message: "Some error")

@@ -7,8 +7,9 @@ struct SignInView: View {
     let authService: AuthServiceProtocol
     
     @State private var vm: SignInViewModel
-    @FocusState private var isPasswordFocused: Bool
     @State private var isShowingCloseConfirmation = false
+    
+    @FocusState private var isPasswordFocused: Bool
     
     init(coordinator: AuthFlowCoordinator, email: String, session: SessionManager, authService: AuthServiceProtocol) {
         self.coordinator = coordinator
@@ -16,24 +17,11 @@ struct SignInView: View {
         self.authService = authService
         _vm = State(initialValue: SignInViewModel(email: email, coordinator: coordinator, session: session, authService: authService))
     }
-    
+
     
     var body: some View {
         VStack(spacing: 0) {
-            VStack(spacing: isPasswordFocused ? 5 : 25) {
-                AnimatedAuthLogo(isFocused: isPasswordFocused)
-                
-                VStack(spacing: 5) {
-                    Text("Welcome Back")
-                        .fontWeight(.medium)
-                    
-                    Text("Sign In with your email and password")
-                        .font(.caption)
-                        .foregroundStyle(Color.textSecondary.opacity(0.7))
-                }
-            }
-            .padding(.top, 24)
-            
+            headerSection
             
             VStack(spacing: 24) {
                 VStack(spacing: 5) {
@@ -105,6 +93,22 @@ struct SignInView: View {
     }
     
     
+    private var headerSection: some View {
+        VStack(spacing: isPasswordFocused ? 5 : 25) {
+            AnimatedAuthLogo(isFocused: isPasswordFocused)
+
+            VStack(spacing: 5) {
+                Text("Welcome Back")
+                    .fontWeight(.medium)
+
+                Text("Sign In with your email and password")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary.opacity(0.7))
+            }
+        }
+        .padding(.top, 24)
+    }
+    
     private var emailField: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Email")
@@ -144,7 +148,7 @@ struct SignInView: View {
                         .underline(color: Color.textSecondary)
                 }
                 .disabled(vm.isSendingResetLink)
-                .layoutPriority(1) // Кнопка имеет приоритет и не будет сжиматься длинной ошибкой
+                .layoutPriority(1)
             }
             
             if let resetError = vm.resetError {
