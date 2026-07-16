@@ -1,7 +1,7 @@
 import Foundation
 
 
-enum EmailValidationError: LocalizedError {
+enum EmailValidationError: LocalizedError, Equatable {
     case empty
     case invalidFormat
 
@@ -13,7 +13,7 @@ enum EmailValidationError: LocalizedError {
     }
 }
 
-enum PasswordValidationError: LocalizedError {
+enum PasswordValidationError: LocalizedError, Equatable {
     case empty
     case tooShort
     case missingNumber
