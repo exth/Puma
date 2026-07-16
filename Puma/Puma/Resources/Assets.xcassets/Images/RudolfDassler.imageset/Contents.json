@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "RudolfDassler1x.jpg",
+      "filename" : "RudolfDassler.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "RudolfDassler2x.jpg",
+      "filename" : "RudolfDassler 2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "RudolfDassler3x.jpg",
+      "filename" : "RudolfDassler 3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

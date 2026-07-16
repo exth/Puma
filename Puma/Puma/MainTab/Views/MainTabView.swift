@@ -16,7 +16,9 @@ struct MainTabView: View {
 
         TabView(selection: $vm.selectedTab) {
             Tab("Info", systemImage: "info.circle.fill", value: TabItem.info) {
-                InfoView()
+                InfoView {
+                    vm.selectedTab = .catalog
+                }
             }
             
             Tab("Catalog", systemImage: "bag.fill", value: TabItem.catalog) {
