@@ -8,7 +8,6 @@ struct AuthView: View {
     @State private var currentNonce: String?
     
     @Environment(SessionManager.self) private var session
-    @Environment(\.scenePhase) private var scenePhase
     
     init(session: SessionManager, authService: AuthServiceProtocol) {
         _vm = State(initialValue: AuthViewModel(session: session, authService: authService))
@@ -66,14 +65,6 @@ struct AuthView: View {
         }
         .onDisappear {
             isLogoFloating = false
-        }
-        .task(id: scenePhase) {
-            guard scenePhase == .active else {
-                return
-            }
-            isLogoFloating = false
-            try? await Task.sleep(for: .milliseconds(50))
-            isLogoFloating = true
         }
     }
     
