@@ -15,6 +15,7 @@ struct EmailFieldBox: View {
                     .padding(.leading)
 
                 TextField("Enter email", text: $text)
+                    .textContentType(.username)
                     .keyboardType(.emailAddress)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()

@@ -36,8 +36,9 @@ final class SignInViewModel {
             
             do {
                 try await authService.signIn(email: email, password: password)
-                session.completeAuthentication()
                 coordinator.close()
+                try? await Task.sleep(nanoseconds: 350_000_000)
+                session.completeAuthentication()
             } catch {
                 passwordError = .custom((error as NSError).firebaseAuthErrorMessage)
             }
@@ -77,5 +78,3 @@ final class SignInViewModel {
         return true
     }
 }
-
-

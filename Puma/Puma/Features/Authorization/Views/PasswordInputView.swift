@@ -24,7 +24,8 @@ struct PasswordInputView: View {
                     SecurePasswordFieldBox(
                         text: $vm.password,
                         errorMessage: vm.validationError?.errorDescription,
-                        focusedField: $isPasswordFocused
+                        focusedField: $isPasswordFocused,
+                        contentType: .newPassword
                     )
                     
                     PrimaryButton(title: vm.isLoading ? "Please wait..." : "Continue") {

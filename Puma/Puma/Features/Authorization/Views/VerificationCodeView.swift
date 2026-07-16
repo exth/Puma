@@ -3,7 +3,7 @@ import SwiftUI
 
 struct VerificationCodeView: View {
     let coordinator: AuthFlowCoordinator
-
+    
     @State private var vm: VerificationCodeViewModel
     @State private var isShowingCloseConfirmation = false
     
@@ -11,7 +11,7 @@ struct VerificationCodeView: View {
     
     init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol, session: SessionManager) {
         self.coordinator = coordinator
-        _vm = State(initialValue: VerificationCodeViewModel(email: email, authService: authService, session: session))
+        _vm = State(initialValue: VerificationCodeViewModel(coordinator: coordinator, email: email, authService: authService, session: session))
     }
     
     var body: some View {
@@ -25,9 +25,9 @@ struct VerificationCodeView: View {
                     .padding(.horizontal)
                 
                 SocialAuthButtons(
-                        tappedOnApple: { isShowingCloseConfirmation = true },
-                        tappedOnGoogle: { isShowingCloseConfirmation = true }
-                    )
+                    tappedOnApple: { isShowingCloseConfirmation = true },
+                    tappedOnGoogle: { isShowingCloseConfirmation = true }
+                )
             }
             .padding(.top, 10)
             
@@ -68,11 +68,11 @@ struct VerificationCodeView: View {
     private var headerSection: some View {
         VStack(spacing: 25) {
             AppLogoView(size: 125)
-
+            
             VStack(spacing: 5) {
                 Text("Check your email")
                     .fontWeight(.medium)
-
+                
                 VStack(spacing: 0) {
                     Text("We've sent a confirmation link to")
                     Text(vm.email)
@@ -91,10 +91,10 @@ struct VerificationCodeView: View {
                 Text("the timer expires")
             }
             .font(.subheadline)
-
+            
             timerSection
                 .frame(height: 50)
-
+            
             if let resendError = vm.resendError {
                 FieldErrorText(message: resendError)
             }
@@ -106,13 +106,17 @@ struct VerificationCodeView: View {
         Group {
             if vm.isTimerFinished {
                 resendButton
+                    .transition(.opacity)
+
             } else {
                 Text(vm.formattedTime)
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.black)
+                    .transition(.opacity)
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: vm.isTimerFinished)
     }
     
     private var resendButton: some View {

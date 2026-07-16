@@ -8,6 +8,7 @@ struct SecurePasswordFieldBox: View {
     let errorMessage: String?
     var showsInlineError: Bool = true
     var focusedField: FocusState<Bool>.Binding
+    var contentType: UITextContentType = .password
 
     @State private var isPasswordVisible = false
 
@@ -26,6 +27,7 @@ struct SecurePasswordFieldBox: View {
                             SecureField(placeholder, text: $text)
                         }
                     }
+                    .textContentType(contentType)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .focused(focusedField)

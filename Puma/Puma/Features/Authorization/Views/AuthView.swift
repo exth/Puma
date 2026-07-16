@@ -4,7 +4,6 @@ import AuthenticationServices
 
 struct AuthView: View {
     @State private var vm: AuthViewModel
-    @State private var isLogoFloating = false
     @State private var currentNonce: String?
     
     @Environment(SessionManager.self) private var session
@@ -20,9 +19,7 @@ struct AuthView: View {
             Spacer()
             
             AppLogoView()
-                .offset(y: isLogoFloating ? -20 : 0)
-                .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true), value: isLogoFloating)
-            
+
             Spacer()
             
             ZStack {
@@ -60,12 +57,6 @@ struct AuthView: View {
             Text(vm.errorMessage ?? "")
         }
         .ignoresSafeArea(edges: .bottom)
-        .onAppear {
-            isLogoFloating = true
-        }
-        .onDisappear {
-            isLogoFloating = false
-        }
     }
     
     
