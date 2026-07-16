@@ -9,4 +9,6 @@ protocol AuthServiceProtocol {
     func sendPasswordReset(email: String) async throws
 
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws
+    
+    func signInWithGoogle() async throws
 }

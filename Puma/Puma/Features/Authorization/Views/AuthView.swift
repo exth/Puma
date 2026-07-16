@@ -32,32 +32,19 @@ struct AuthView: View {
                     .frame(height: 280)
                 
                 VStack(spacing: 12) {
-                    // MARK: ЗАМЕНИТЬ НА APPLE
                     appleButton
                     
-                    // MARK: ЗАМЕНИТЬ НА GOOGLE
-                    Button {
-                        //
-                    } label: {
-                        Text("Continue with Google")
-                            .foregroundStyle(Color.black)
-                            .fontWeight(.semibold)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.white)
-                            )
-                    }
+                    googleButton
                     
                     Button {
                         vm.showEmailInput()
                     } label: {
                         Text("Sign In or Sign Up")
+                            .font(.system(size: 19, weight: .medium))
                             .foregroundStyle(Color.white)
-                            .fontWeight(.semibold)
                             .padding()
                             .frame(maxWidth: .infinity)
+                            .frame(height: 50)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color.textSecondary)
@@ -101,6 +88,31 @@ struct AuthView: View {
         )
         .signInWithAppleButtonStyle(.white)
         .frame(height: 50)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .disabled(vm.isLoading)
+    }
+    
+    
+    private var googleButton: some View {
+        Button {
+            Task {
+                await vm.signInWithGoogle()
+            }
+        } label: {
+            HStack(spacing: 8) {
+                Image.googlelogo
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16, height: 16)
+
+                Text("Sign in with Google")
+                    .font(.system(size: 19, weight: .medium))
+                    .foregroundStyle(Color.black)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(Color.white)
+        }
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .disabled(vm.isLoading)
     }

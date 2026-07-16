@@ -36,7 +36,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		291D90132FFFDD8600F4544B /* Exceptions for "Puma" folder in "Puma" target */ = {
+		2982C599300872EE00C80933 /* Exceptions for "Puma" folder in "Puma" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
@@ -49,7 +49,7 @@
 		291D8FC42FFFB5B400F4544B /* Puma */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				291D90132FFFDD8600F4544B /* Exceptions for "Puma" folder in "Puma" target */,
+				2982C599300872EE00C80933 /* Exceptions for "Puma" folder in "Puma" target */,
 			);
 			path = Puma;
 			sourceTree = "<group>";

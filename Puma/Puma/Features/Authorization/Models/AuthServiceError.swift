@@ -7,6 +7,10 @@ enum AuthServiceError: LocalizedError {
     case appleNonceMissing
     case appleIDTokenMissing
     case appleInvalidCredential
+    case clientIDNotFound
+    case noRootViewController
+    case noIDToken
+    case googleSignInCanceled
 
     var errorDescription: String? {
         switch self {
@@ -20,6 +24,14 @@ enum AuthServiceError: LocalizedError {
             return "Failed to get data from Apple"
         case .appleInvalidCredential:
             return "Invalid Apple Sign In credentials"
+        case .clientIDNotFound:
+            return "Google configuration error"
+        case .noRootViewController:
+            return "Unable to present sign-in screen"
+        case .noIDToken:
+            return "Failed to get data from Google"
+        case .googleSignInCanceled:
+            return ""
         }
     }
 }
