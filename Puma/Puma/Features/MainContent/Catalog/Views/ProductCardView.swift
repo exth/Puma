@@ -33,14 +33,14 @@ struct ProductCardView: View {
                 .overlay(
                     ZStack(alignment: .bottom) {
                         Ellipse()
-                            .fill(Color.black.opacity(0.2))
-                            .frame(width: 88, height: 12)
+                            .fill(Color.black.opacity(0.35))
+                            .frame(width: 110, height: 8)
                             .blur(radius: 6)
                             .padding(.bottom, 28)
                             .allowsHitTesting(false)
                         
                         productImage
-                            .padding(14)
+                            .padding(7)
                     }
                 )
             

@@ -13,18 +13,18 @@ enum AuthState: Equatable {
 final class SessionManager {
     private(set) var authState: AuthState = .loggedOut
     
-//    init() {
-//        restoreSession()
-//    }
+    init() {
+        restoreSession()
+    }
     
     // MARK: - 1) УБРАТЬ + вернуть верхний инициализатор -
-    init() {
-        #if DEBUG
-        authState = .loggedIn
-        #else
-        restoreSession()
-        #endif
-    }
+//    init() {
+//        #if DEBUG
+//        authState = .loggedIn
+//        #else
+//        restoreSession()
+//        #endif
+//    }
 
     
     func restoreSession() {
