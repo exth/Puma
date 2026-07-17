@@ -19,7 +19,7 @@ final class SessionManagerTests: XCTestCase {
     }
  
     func test_init_noStoredFlag_shouldBeLoggedOut() {
-        XCTAssertEqual(session.authState, .loggedOut)
+        XCTAssertEqual(session.authState, .loggedOut) 
     }
  
     func test_completeAuthentication_shouldSetFirstLogin() {

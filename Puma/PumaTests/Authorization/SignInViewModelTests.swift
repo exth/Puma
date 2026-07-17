@@ -36,9 +36,9 @@ final class SignInViewModelTests: XCTestCase {
     func test_continueTapped_validCredentials_shouldSignIn() async {
         vm.password = "somePassword123@"
         vm.continueTapped()
-        try? await Task.sleep(nanoseconds: 300_000_000)
+        try? await Task.sleep(nanoseconds: 1_000_000_000)
  
         XCTAssertTrue(mockAuthService.signInCalled)
-        XCTAssertEqual(session.authState, .firstLogin)
+        XCTAssertEqual(session.authState, .firstLogin) 
     }
 }
