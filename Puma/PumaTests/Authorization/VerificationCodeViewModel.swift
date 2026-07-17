@@ -7,12 +7,13 @@ final class VerificationCodeViewModelTests: XCTestCase {
     var vm: VerificationCodeViewModel!
     var mockAuthService: MockAuthService!
     var session: SessionManager!
- 
+    var coordinator: AuthFlowCoordinator!
+
     override func setUp() async throws {
         try await super.setUp()
         mockAuthService = MockAuthService()
         session = SessionManager()
-        vm = VerificationCodeViewModel(email: "testEmail@gmail.com", authService: mockAuthService, session: session)
+        vm = VerificationCodeViewModel(coordinator: AuthFlowCoordinator(), email: "testEmail@gmail.com", authService: mockAuthService, session: session)
     }
  
     override func tearDown() async throws {

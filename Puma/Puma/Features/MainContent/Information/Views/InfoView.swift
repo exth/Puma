@@ -29,7 +29,7 @@ struct InfoView: View {
                     
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
         .onTapGesture {
             withAnimation(.smooth(duration: 0.25)) {
