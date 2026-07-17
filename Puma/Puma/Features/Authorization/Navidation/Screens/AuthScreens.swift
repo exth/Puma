@@ -6,3 +6,4 @@ enum AuthScreens: Hashable {
     case signInView(email: String)
     case verificationCodeView(email: String)
 }
+

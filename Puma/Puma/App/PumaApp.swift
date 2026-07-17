@@ -1,6 +1,7 @@
 import SwiftUI
 import FirebaseCore
 import GoogleSignIn
+import Kingfisher
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -18,6 +19,10 @@ struct PumaApp: App {
     
     @State private var session = SessionManager()
     @State private var authService = FirebaseAuthService()
+    
+    init() {
+        ImageCache.default.memoryStorage.config.totalCostLimit = 50 * 1024 * 1024
+    }
     
     var body: some Scene {
         WindowGroup {
