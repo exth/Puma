@@ -44,7 +44,7 @@ struct ProductCardView: View {
                     }
                 )
             
-            favoriteButton
+            FavoriteButtonView(isFavorite: $isFavorite)
                 .padding(8)
         }
     }
@@ -58,27 +58,6 @@ struct ProductCardView: View {
             .fade(duration: 0.25)
             .resizable()
             .scaledToFit()
-    }
-    
-    private var favoriteButton: some View {
-        Button {
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                isFavorite.toggle()
-            }
-        } label: {
-            Image(systemName: isFavorite ? "heart.fill" : "heart")
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundStyle(isFavorite ? .white : .black.opacity(0.6))
-                .frame(width: 25, height: 25)
-                .background(isFavorite ? Color.red : Color.white)
-                .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(Color.white, lineWidth: isFavorite ? 2 : 0)
-                )
-                .shadow(color: .black.opacity(0.15), radius: 3)
-        }
     }
     
     private var infoSection: some View {

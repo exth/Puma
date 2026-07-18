@@ -38,3 +38,14 @@ extension View {
             )
     }
 }
+
+
+extension View {
+    func unavailableFeatureAlert(isPresented: Binding<Bool>) -> some View {
+        self.alert("Coming Soon", isPresented: isPresented) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Purchases aren't available in the app just yet. Please visit the official PUMA website — you'll find the link in the Profile tab.")
+        }
+    }
+}
