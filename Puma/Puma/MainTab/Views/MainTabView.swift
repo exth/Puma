@@ -3,6 +3,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @Environment(SessionManager.self) private var session
+    @Environment(CartManager.self) private var cartManager
     
     @State private var vm: MainTabViewModel
     
@@ -26,7 +27,9 @@ struct MainTabView: View {
             }
             
             Tab("Cart", systemImage: "cart.fill", value: TabItem.cart) {
-                CartView()
+                CartView(cartManager: cartManager) {
+                    vm.selectedTab = .catalog
+                }
             }
             
             Tab("Profile", systemImage: "person.circle.fill", value: TabItem.profile) {

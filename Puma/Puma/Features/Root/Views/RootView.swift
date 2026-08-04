@@ -8,7 +8,7 @@ struct RootView: View {
     
     var body: some View {
         ZStack {
-            Color.red
+            Color.backgroundPrimary
                 .ignoresSafeArea()
             
             Group {

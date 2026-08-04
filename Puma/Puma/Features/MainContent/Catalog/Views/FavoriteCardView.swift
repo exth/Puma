@@ -4,6 +4,7 @@ import Kingfisher
 
 struct FavoriteCardView: View {
     @State private var vm: FavoriteCardViewModel
+    @Environment(CartManager.self) private var cartManager
     let onRemoveFavorite: () -> Void
     
     init(product: Product, onRemoveFavorite: @escaping () -> Void) {
@@ -33,7 +34,9 @@ struct FavoriteCardView: View {
         .sheet(isPresented: $vm.isShowingColorPicker) {
             colorPickerSheet
         }
+        .appBackground()
         .unavailableFeatureAlert(isPresented: $vm.isShowingUnavailableAlert)
+        .addedToCartAlert(isPresented: $vm.isShowingAddToCartAlert)
     }
     
     
@@ -161,7 +164,12 @@ struct FavoriteCardView: View {
             }
             
             Button {
-                // TODO: реализовать, когда появится корзина
+                cartManager.addToCart(
+                    product: vm.product,
+                    size: vm.selectedSize,
+                    color: vm.selectedColor
+                )
+                vm.isShowingAddToCartAlert = true
             } label: {
                 Text("Add to cart")
                     .font(.caption)
@@ -240,4 +248,5 @@ struct FavoriteCardView: View {
         onRemoveFavorite: { }
     )
     .padding()
+    .environment(CartManager())
 }

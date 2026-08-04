@@ -10,7 +10,35 @@ struct ProfileView: View {
     
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Image.pumaIcon
+                    .frame(width: 100, height: 100)
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             Text("ProfileView")
             
             Button {
@@ -41,6 +69,7 @@ struct ProfileView: View {
         } message: {
             Text("The product cache was cleared. Fresh data will be loaded next time you open the catalog.")
         }
+        .appBackground()
     }
 }
 

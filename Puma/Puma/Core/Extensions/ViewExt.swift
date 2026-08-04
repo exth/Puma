@@ -18,7 +18,7 @@ extension View {
             Button("Close", role: .destructive, action: onConfirm)
             Button("Cancel", role: .cancel) { }
         } message: {
-            Text("If you close now, your progress will be lost and you'll need to start over.")
+            Text("If you close now, your progress will be lost and you'll need to start over")
         }
     }
 }
@@ -45,7 +45,18 @@ extension View {
         self.alert("Coming Soon", isPresented: isPresented) {
             Button("OK", role: .cancel) { }
         } message: {
-            Text("Purchases aren't available in the app just yet. Please visit the official PUMA website — you'll find the link in the Profile tab.")
+            Text("Purchases aren't available in the app just yet. Please visit the official PUMA website - you'll find the link in the Profile tab")
+        }
+    }
+}
+
+
+extension View {
+    func addedToCartAlert(isPresented: Binding<Bool>) -> some View {
+        self.alert("Added to Cart", isPresented: isPresented) {
+            Button("Continue", role: .cancel) { }
+        } message: {
+            Text("The item has been added to your cart")
         }
     }
 }

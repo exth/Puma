@@ -44,6 +44,10 @@ struct CatalogView: View {
             .task {
                 await vm.loadProducts()
             }
+            .onDisappear {
+                isSearchFocused = false
+            }
+            .appBackground()
         }
     }
     
@@ -79,7 +83,7 @@ struct CatalogView: View {
                 .background(Color.backgroundPrimary)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .overlay (
-                     RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 20)
                         .stroke(Color.borderDefault, lineWidth: 0.5)
                 )
             
@@ -146,28 +150,13 @@ struct CatalogView: View {
     }
     
     private var noResultsSection: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "text.magnifyingglass")
-                .font(.system(size: 30, weight: .semibold))
-                .foregroundStyle(Color.pumaColor)
-                .frame(width: 84, height: 84)
-                .background(
-                    Circle()
-                        .fill(Color.backgroundSecondary.opacity(0.6))
-                )
-            
-            VStack(spacing: 6) {
-                Text("No models found")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                
+        ContentUnavailableView(
+            "No models found",
+            systemImage: "text.magnifyingglass",
+            description:
                 Text("We couldn't find anything. Try another name")
-                    .font(.subheadline)
-                    .foregroundStyle(Color.textMuted)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 24)
-            }
-        }
+                .font(.subheadline)
+        )
         .frame(maxWidth: .infinity)
         .padding(.top, 60)
         .padding(.bottom, 40)

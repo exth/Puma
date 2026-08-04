@@ -11,6 +11,7 @@ final class FavoriteCardViewModel {
     var isShowingSizePicker = false
     var isShowingColorPicker = false
     var isShowingUnavailableAlert = false
+    var isShowingAddToCartAlert = false
     
     init(product: Product) {
         self.product = product

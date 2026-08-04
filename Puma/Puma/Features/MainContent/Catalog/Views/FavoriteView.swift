@@ -25,7 +25,7 @@ struct FavoriteView: View {
                         "No Favorites Yet",
                         systemImage: "heart.slash",
                         description:
-                            Text("Browse the catalog and tap the heart icon on a product card to save items you like.")
+                            Text("Browse the catalog and tap the heart icon on a product card to save items you like")
                             .font(.subheadline)
                     )
                 }

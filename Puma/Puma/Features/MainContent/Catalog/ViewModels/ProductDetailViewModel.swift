@@ -9,6 +9,7 @@ final class ProductDetailViewModel {
     var selectedColor: ProductColor?
     var selectedImageIndex = 0
     var isShowingUnavailableAlert = false
+    var isShowingAddToCartAlert = false
     
     let allSizes = Array(36...46)
     let allColors = ProductColor.allCases

@@ -5,6 +5,7 @@ import Kingfisher
 struct ProductDetailView: View {
     @State private var vm: ProductDetailViewModel
     @State private var isFavorite = false
+    @Environment(CartManager.self) private var cartManager
     @Environment(\.dismiss) private var dismiss
     
     private let imageCardHeight: CGFloat = 250
@@ -43,6 +44,7 @@ struct ProductDetailView: View {
         }
         .appBackground()
         .unavailableFeatureAlert(isPresented: $vm.isShowingUnavailableAlert)
+        .addedToCartAlert(isPresented: $vm.isShowingAddToCartAlert)
     }
     
     
@@ -213,7 +215,10 @@ struct ProductDetailView: View {
             .opacity(vm.canPurchase ? 1 : 0.4)
             
             Button {
-                // TODO: реализовать, когда появится корзина
+                if let size = vm.selectedSize, let color = vm.selectedColor {
+                    cartManager.addToCart(product: vm.product, size: size, color: color.rawValue)
+                    vm.isShowingAddToCartAlert = true
+                }
             } label: {
                 Text("Add to cart")
                     .font(.subheadline)
@@ -251,4 +256,5 @@ struct ProductDetailView: View {
             )
         )
     }
+    .environment(CartManager())
 }

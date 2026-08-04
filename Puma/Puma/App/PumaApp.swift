@@ -20,6 +20,7 @@ struct PumaApp: App {
     @State private var session = SessionManager()
     @State private var authService = FirebaseAuthService()
     @State private var favoritesManager = FavoritesManager()
+    @State private var cartManager = CartManager()
     
     init() {
         ImageCache.default.memoryStorage.config.totalCostLimit = 50 * 1024 * 1024
@@ -31,6 +32,7 @@ struct PumaApp: App {
                 .environment(session)
                 .environment(authService)
                 .environment(favoritesManager)
+                .environment(cartManager)
                 .onOpenURL { url in
                     _ = GIDSignIn.sharedInstance.handle(url)
                 }

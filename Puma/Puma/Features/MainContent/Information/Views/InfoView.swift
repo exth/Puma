@@ -47,6 +47,7 @@ struct InfoView: View {
                 }
         )
         .scrollIndicators(.hidden)
+        .appBackground()
     }
     
     
