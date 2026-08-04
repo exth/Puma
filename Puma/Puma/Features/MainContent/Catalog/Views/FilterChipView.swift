@@ -13,7 +13,7 @@ struct FilterChipView: View {
                 .font(.caption)
                 .foregroundStyle(textColor)
                 .padding(.vertical, 6)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 22)
                 .background(backgroundView)
         }
     }

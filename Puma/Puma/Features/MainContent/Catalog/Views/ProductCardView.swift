@@ -5,8 +5,7 @@ import Kingfisher
 struct ProductCardView: View {
     let product: Product
     
-    // Пока что это чисто визуальный тогл. Когда будет избранное - будет vm.isFavorite(product)
-    @State private var isFavorite = false
+    @Environment(FavoritesManager.self) private var favoritesManager
     
     
     var body: some View {
@@ -44,8 +43,10 @@ struct ProductCardView: View {
                     }
                 )
             
-            FavoriteButtonView(isFavorite: $isFavorite)
-                .padding(8)
+            FavoriteButtonView(isFavorite: favoritesManager.isFavorite(product)) {
+                favoritesManager.toggleFavorite(product)
+            }
+            .padding(8)
         }
     }
     
@@ -114,4 +115,5 @@ struct ProductCardView: View {
     )
     .frame(width: 170)
     .padding()
+    .environment(FavoritesManager())
 }

@@ -40,11 +40,6 @@ struct ProductDetailView: View {
             ToolbarItem(placement: .principal) {
                 AppLogoView(size: 80)
             }
-            
-            // TODO: реализовать
-//            ToolbarItem(placement: .topBarTrailing) {
-//                FavoriteButtonView(isFavorite: $isFavorite, size: 28, showsShadow: false)
-//            }
         }
         .appBackground()
         .unavailableFeatureAlert(isPresented: $vm.isShowingUnavailableAlert)

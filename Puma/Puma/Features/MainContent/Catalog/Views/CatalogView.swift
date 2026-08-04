@@ -6,6 +6,8 @@ struct CatalogView: View {
     @Namespace private var animation
     @FocusState private var isSearchFocused: Bool
     
+    @Environment(FavoritesManager.self) private var favoritesManager
+    
     private let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
@@ -31,7 +33,7 @@ struct CatalogView: View {
                     case .productDetail(let product):
                         ProductDetailView(product: product)
                     case .favorite:
-                        FavoriteView()
+                        FavoriteView(favoritesManager: favoritesManager)
                     }
                 }
             }
@@ -75,12 +77,11 @@ struct CatalogView: View {
                 .autocorrectionDisabled()
                 .frame(maxWidth: .infinity)
                 .background(Color.backgroundPrimary)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .clipShape(RoundedRectangle(cornerRadius: 20))
                 .overlay (
-                     RoundedRectangle(cornerRadius: 16)
-                          .stroke(Color.borderDefault, lineWidth: 1)
+                     RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.borderDefault, lineWidth: 0.5)
                 )
-                .shadow(color: .black.opacity(0.15), radius: 5)
             
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Color.textSecondary)
@@ -193,4 +194,6 @@ struct CatalogView: View {
 
 #Preview {
     CatalogView()
+        .environment(FavoritesManager())
 }
+

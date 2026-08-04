@@ -2,14 +2,15 @@ import SwiftUI
 
 
 struct FavoriteButtonView: View {
-    @Binding var isFavorite: Bool
+    let isFavorite: Bool
     var size: CGFloat = 25
     var showsShadow: Bool = true
+    let action: () -> Void
     
     var body: some View {
         Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                isFavorite.toggle()
+                action()
             }
         } label: {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
@@ -35,8 +36,6 @@ struct FavoriteButtonView: View {
 
 
 #Preview {
-    @Previewable @State var isFavorite = false
-    
-    FavoriteButtonView(isFavorite: $isFavorite, size: 34)
+    FavoriteButtonView(isFavorite: true, size: 34) { }
         .padding()
 }

@@ -9,10 +9,7 @@ struct AnimatedAuthLogo: View {
             AppLogoView(size: 125)
                 .opacity(isFocused ? 0 : 1)
             
-            Text("PUMA")
-                .font(.system(size: 55, weight: .black))
-                .italic()
-                .foregroundColor(.black.opacity(0.05))
+            PumaWatermarkView()
                 .opacity(isFocused ? 1 : 0)
                 .offset(y: isFocused ? 0 : -20)
         }
