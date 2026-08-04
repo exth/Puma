@@ -11,4 +11,6 @@ protocol AuthServiceProtocol {
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws
     
     func signInWithGoogle() async throws
+    
+    func deleteAccount() async throws
 }

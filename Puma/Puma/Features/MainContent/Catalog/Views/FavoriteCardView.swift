@@ -21,7 +21,7 @@ struct FavoriteCardView: View {
             }
         }
         .padding(10)
-        .background(Color.white.opacity(0.5))
+        .background(Color.white.opacity(0.7))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
@@ -42,8 +42,6 @@ struct FavoriteCardView: View {
     
     private var imageSection: some View {
         VStack(spacing: 0) {
-            
-            
             ZStack(alignment: .bottom) {
                 Ellipse()
                     .fill(Color.black.opacity(0.45))

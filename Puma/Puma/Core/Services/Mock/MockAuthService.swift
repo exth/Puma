@@ -9,10 +9,11 @@ final class MockAuthService: AuthServiceProtocol {
     var reloadCurrentUserCalled = false
     var sendPasswordResetCalled = false
     var signInWithGoogleCalled = false
+    var deleteAccountCalled = false
  
     var errorToThrow: Error?
     var isEmailVerifiedToReturn = false
- 
+     
     
     func signUp(email: String, password: String) async throws {
         signUpCalled = true
@@ -21,6 +22,7 @@ final class MockAuthService: AuthServiceProtocol {
         }
     }
  
+    
     func signIn(email: String, password: String) async throws {
         signInCalled = true
         if let errorToThrow {
@@ -28,6 +30,7 @@ final class MockAuthService: AuthServiceProtocol {
         }
     }
  
+    
     func resendVerificationEmail() async throws {
         resendVerificationCalled = true
         if let errorToThrow {
@@ -35,6 +38,7 @@ final class MockAuthService: AuthServiceProtocol {
         }
     }
  
+    
     func reloadCurrentUser() async throws -> Bool {
         reloadCurrentUserCalled = true
         if let errorToThrow {
@@ -43,6 +47,7 @@ final class MockAuthService: AuthServiceProtocol {
         return isEmailVerifiedToReturn
     }
  
+    
     func sendPasswordReset(email: String) async throws {
         sendPasswordResetCalled = true
         if let errorToThrow {
@@ -50,14 +55,24 @@ final class MockAuthService: AuthServiceProtocol {
         }
     }
  
+    
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws {
         if let errorToThrow {
             throw errorToThrow
         }
     }
  
+    
     func signInWithGoogle() async throws {
         signInWithGoogleCalled = true
+        if let errorToThrow {
+            throw errorToThrow
+        }
+    }
+    
+    
+    func deleteAccount() async throws {
+        deleteAccountCalled = true
         if let errorToThrow {
             throw errorToThrow
         }

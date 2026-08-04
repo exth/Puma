@@ -20,7 +20,7 @@ struct CartCardView: View {
             }
         }
         .padding(10)
-        .background(Color.white.opacity(0.5))
+        .background(Color.white.opacity(0.7))
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)

@@ -13,7 +13,7 @@ struct FavoriteView: View {
     var body: some View {
         ZStack {
             if vm.hasFavorites {
-                PumaWatermarkView(fontSize: 75)
+                PumaWatermarkView(fontSize: 85)
                     .transition(.opacity)
             }
             

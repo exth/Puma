@@ -60,3 +60,39 @@ extension View {
         }
     }
 }
+
+
+extension View {
+    func signOutAlert(isPresented: Binding<Bool>, onConfirm: @escaping () -> Void) -> some View {
+        self.alert("Sign Out", isPresented: isPresented) {
+            Button("Sign Out", role: .destructive, action: onConfirm)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to sign out? You can always sign back in anytime")
+        }
+    }
+}
+
+
+extension View {
+    func deleteAccountAlert(isPresented: Binding<Bool>, onConfirm: @escaping () -> Void) -> some View {
+        self.alert("Delete Account", isPresented: isPresented) {
+            Button("Delete Account", role: .destructive, action: onConfirm)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure you want to delete your account? All your data, including favorites and cart items, will be permanently removed")
+        }
+    }
+}
+
+
+extension View {
+    func finalDeleteAccountAlert(isPresented: Binding<Bool>, onConfirm: @escaping () -> Void) -> some View {
+        self.alert("This Can't Be Undone", isPresented: isPresented) {
+            Button("Delete Permanently", role: .destructive, action: onConfirm)
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Once deleted, your account cannot be restored. This action is permanent and irreversible")
+        }
+    }
+}

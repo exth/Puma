@@ -16,7 +16,7 @@ struct CartView: View {
         NavigationStack {
             ZStack {
                 if vm.hasItems {
-                    PumaWatermarkView(fontSize: 75)
+                    PumaWatermarkView(fontSize: 85)
                         .transition(.opacity)
                 }
                 
