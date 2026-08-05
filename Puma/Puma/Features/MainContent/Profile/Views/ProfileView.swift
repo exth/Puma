@@ -29,6 +29,9 @@ struct ProfileView: View {
             signOutButton
             
             Spacer()
+            
+            signatureText
+                .frame(maxWidth: .infinity, alignment: .center)
         }
         .padding()
         .appBackground()
@@ -74,6 +77,7 @@ struct ProfileView: View {
                 .font(.title3).bold()
         }
         .padding(10)
+        .padding(.horizontal, 5)
         .clipShape(RoundedRectangle(cornerRadius: 30))
         .overlay (
              RoundedRectangle(cornerRadius: 30)
@@ -96,7 +100,9 @@ struct ProfileView: View {
     private var descriptionSection: some View {
         Text(ProfileContent.appDescription)
             .foregroundStyle(Color.textSecondary)
-            .padding()
+            .padding(.vertical, 10)
+            .padding(.horizontal, 15)
+            .offset(x: -3)
             .frame(maxWidth: .infinity)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -109,14 +115,13 @@ struct ProfileView: View {
     private var versionAndTermsSection: some View {
         HStack {
             Text(vm.appVersion)
-                .font(.subheadline)
                 .foregroundStyle(.black)
             
             Spacer()
             
             TermsOfUseButton()
                 .offset(y: 0.5)
-                .opacity(0.7)
+                .opacity(0.5)
         }
         .padding(10)
         .padding(.horizontal, 6)
@@ -135,7 +140,6 @@ struct ProfileView: View {
             vm.clearCache()
         } label: {
             Text("Clear Cache")
-                .font(.subheadline)
                 .foregroundStyle(.white)
                 .padding(10)
                 .frame(maxWidth: .infinity)
@@ -154,7 +158,6 @@ struct ProfileView: View {
             vm.deleteAccountTapped()
         } label: {
             Text(vm.isDeletingAccount ? "Deleting..." : "Delete Account")
-                .font(.subheadline)
                 .foregroundStyle(.white)
                 .padding(10)
                 .frame(maxWidth: .infinity)
@@ -175,7 +178,6 @@ struct ProfileView: View {
             vm.signOutTapped()
         } label: {
             Text("Sign Out")
-                .font(.subheadline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.black)
                 .padding(10)
@@ -187,6 +189,12 @@ struct ProfileView: View {
                         .stroke(Color.borderDefault, lineWidth: 1)
                 )
         }
+    }
+    
+    private var signatureText: some View {
+        Text("exthxrn")
+            .font(.caption)
+            .foregroundStyle(Color.textMuted.opacity(0.6))
     }
 }
 

@@ -21,9 +21,21 @@ struct ColorSwatchView: View {
                     Circle()
                         .stroke(Color.borderDefault, lineWidth: 1)
                 )
+                .overlay(unavailableStrike)
                 .opacity(isAvailable ? 1 : 0.25)
         }
         .disabled(!isAvailable)
+    }
+    
+    
+    @ViewBuilder
+    private var unavailableStrike: some View {
+        if !isAvailable {
+            Rectangle()
+                .fill(Color.textMuted)
+                .frame(width: 32, height: 1)
+                .rotationEffect(.degrees(45))
+        }
     }
 }
 

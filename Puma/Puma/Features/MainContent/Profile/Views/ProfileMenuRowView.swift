@@ -9,7 +9,6 @@ struct ProfileMenuRowView: View {
         Button(action: action) {
             HStack {
                 Text(title)
-                    .font(.subheadline)
                     .foregroundStyle(.white)
                 
                 Spacer()
@@ -17,6 +16,7 @@ struct ProfileMenuRowView: View {
                 arrowIcon
             }
             .padding(10)
+            .padding(.horizontal, 6)
             .frame(width: 300)
             .background(Color.black)
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -31,7 +31,6 @@ struct ProfileMenuRowView: View {
     
     private var arrowIcon: some View {
         Image(systemName: "arrow.right")
-            .fontWeight(.semibold)
             .foregroundStyle(.white)
             .frame(width: 26, height: 26)
 

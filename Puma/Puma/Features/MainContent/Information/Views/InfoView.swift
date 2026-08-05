@@ -11,7 +11,6 @@ struct InfoView: View {
         ScrollView {
             VStack(spacing: 25) {
                 AppLogoView(size: 120)
-                    .padding(.top, 5)
                 
                 VStack(alignment: .leading, spacing: 15) {
                     TextCard(text: InfoContent.brandDescription)

@@ -34,7 +34,6 @@ struct FavoriteCardView: View {
         .sheet(isPresented: $vm.isShowingColorPicker) {
             colorPickerSheet
         }
-        .appBackground()
         .unavailableFeatureAlert(isPresented: $vm.isShowingUnavailableAlert)
         .addedToCartAlert(isPresented: $vm.isShowingAddToCartAlert)
     }

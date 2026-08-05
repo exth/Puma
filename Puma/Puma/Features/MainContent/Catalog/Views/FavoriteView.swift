@@ -34,6 +34,7 @@ struct FavoriteView: View {
         }
         .animation(.easeInOut(duration: 0.3), value: vm.hasFavorites)
         .appBackground()
+        .background(SwipeBackEnabler())
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

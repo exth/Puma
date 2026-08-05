@@ -43,6 +43,7 @@ struct ProductDetailView: View {
             }
         }
         .appBackground()
+        .background(SwipeBackEnabler())
         .unavailableFeatureAlert(isPresented: $vm.isShowingUnavailableAlert)
         .addedToCartAlert(isPresented: $vm.isShowingAddToCartAlert)
     }
@@ -56,6 +57,10 @@ struct ProductDetailView: View {
                     .stroke(Color.borderDefault, lineWidth: 2)
             )
             .shadow(color: .black.opacity(0.1), radius: 5)
+            .overlay(alignment: .topLeading) {
+                PumaWatermarkView(fontSize: 22, opacity: 0.15)
+                    .padding(14)
+            }
             .overlay(imagesTabView)
             .frame(maxWidth: .infinity)
             .frame(height: imageCardHeight)
@@ -84,10 +89,6 @@ struct ProductDetailView: View {
                 .blur(radius: 8)
                 .padding(.bottom, 50)
                 .allowsHitTesting(false)
-            
-//            Image("qqq")
-//                .resizable()
-//                .scaledToFit()
             
             KFImage(URL(string: urlString))
                 .placeholder {
