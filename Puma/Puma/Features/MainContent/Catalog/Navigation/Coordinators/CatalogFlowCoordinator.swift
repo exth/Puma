@@ -13,8 +13,4 @@ final class CatalogFlowCoordinator {
     func showFavorite() {
         path.append(CatalogScreens.favorite)
     }
-    
-    func goBack() {
-        path.removeLast()
-    }
 }

@@ -9,14 +9,11 @@ final class ProfileViewModel {
     private let authService: AuthServiceProtocol
     
     var didClearCache = false
-    
     var isShowingOrderHistoryAlert = false
-    
     var isShowingDeleteAccountAlert = false
     var isShowingFinalDeleteAccountAlert = false
     var isDeletingAccount = false
     var deleteAccountError: String?
-    
     var isShowingSignOutAlert = false
     
     init(
@@ -47,7 +44,6 @@ final class ProfileViewModel {
         didClearCache = true
     }
     
-    
     func signOutTapped() {
         isShowingSignOutAlert = true
     }
@@ -55,7 +51,6 @@ final class ProfileViewModel {
     func confirmSignOut() {
         session.logOut()
     }
-    
     
     func deleteAccountTapped() {
         isShowingDeleteAccountAlert = true

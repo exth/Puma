@@ -3,18 +3,18 @@ import Foundation
 
 @Observable
 final class SignInViewModel {
-    let email: String
-    var password = ""
-    var passwordError: SignInPasswordError?
-    var isLoading = false
-    var isShowingResetAlert = false
-    
-    var isSendingResetLink = false
-    var resetError: String?
-    
     private let coordinator: AuthFlowCoordinator
     private let session: SessionManager
     private let authService: AuthServiceProtocol
+    
+    let email: String
+    
+    var passwordError: SignInPasswordError?
+    var password = ""
+    var isLoading = false
+    var isShowingResetAlert = false
+    var isSendingResetLink = false
+    var resetError: String?
     
     init(email: String, coordinator: AuthFlowCoordinator, session: SessionManager, authService: AuthServiceProtocol) {
         self.email = email
@@ -67,7 +67,6 @@ final class SignInViewModel {
             isSendingResetLink = false
         }
     }
-    
     
     private func validatedPassword() -> Bool {
         guard !password.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {

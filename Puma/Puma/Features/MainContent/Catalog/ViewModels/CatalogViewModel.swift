@@ -3,15 +3,15 @@ import Foundation
 
 @Observable
 final class CatalogViewModel {
+    private let productService: ProductServiceProtocol
+    private let cacheService: ProductCacheServiceProtocol
+    
     var products: [Product] = []
     var isLoading = false
     var errorMessage: String?
     
     var findModel = ""
     var selectedFilter: CatalogFilter = .all
-    
-    private let productService: ProductServiceProtocol
-    private let cacheService: ProductCacheServiceProtocol
     
     private var hasStartedLoading = false
     
@@ -77,7 +77,6 @@ final class CatalogViewModel {
         errorMessage = nil
         await fetchFromNetwork(showSpinner: true, showErrorOnFailure: true)
     }
-    
     
     private func fetchFromNetwork(showSpinner: Bool, showErrorOnFailure: Bool) async {
         if showSpinner {

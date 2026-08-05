@@ -16,15 +16,6 @@ final class SessionManager {
     init() {
         restoreSession()
     }
-    
-    // MARK: - 1) УБРАТЬ + вернуть верхний инициализатор -
-//    init() {
-//        #if DEBUG
-//        authState = .loggedIn
-//        #else
-//        restoreSession()
-//        #endif
-//    }
 
     
     func restoreSession() {

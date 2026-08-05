@@ -2,7 +2,9 @@ import Foundation
 
 
 @Observable
-final class ProductDetailViewModel {
+final class ProductDetailViewModel: UnavailablePurchasable {
+    private let cartManager: CartManager
+    
     let product: Product
     
     var selectedSize: Int?
@@ -14,14 +16,11 @@ final class ProductDetailViewModel {
     let allSizes = Array(36...46)
     let allColors = ProductColor.allCases
     
-    init(product: Product) {
+    init(product: Product, cartManager: CartManager) {
         self.product = product
+        self.cartManager = cartManager
     }
     
-    
-    var originalPrice: Double {
-        product.price + 50
-    }
     
     var canPurchase: Bool {
         selectedSize != nil && selectedColor != nil
@@ -50,7 +49,11 @@ final class ProductDetailViewModel {
         selectedColor = color
     }
     
-    func buyNowTapped() {
-        isShowingUnavailableAlert = true
+    func addToCart() {
+        guard let size = selectedSize, let color = selectedColor else {
+            return
+        }
+        cartManager.addToCart(product: product, size: size, color: color.rawValue)
+        isShowingAddToCartAlert = true
     }
 }

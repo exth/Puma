@@ -3,9 +3,11 @@ import Kingfisher
 
 
 struct ProductCardView: View {
-    let product: Product
+    @State private var vm: ProductCardViewModel
     
-    @Environment(FavoritesManager.self) private var favoritesManager
+    init(product: Product, favoritesManager: FavoritesManager) {
+        _vm = State(initialValue: ProductCardViewModel(product: product, favoritesManager: favoritesManager))
+    }
     
     
     var body: some View {
@@ -43,15 +45,15 @@ struct ProductCardView: View {
                     }
                 )
             
-            FavoriteButtonView(isFavorite: favoritesManager.isFavorite(product)) {
-                favoritesManager.toggleFavorite(product)
+            FavoriteButtonView(isFavorite: vm.isFavorite) {
+                vm.toggleFavorite()
             }
             .padding(8)
         }
     }
     
     private var productImage: some View {
-        KFImage(URL(string: product.imageURL1))
+        KFImage(URL(string: vm.product.imageURL1))
             .placeholder {
                 ProgressView()
             }
@@ -63,17 +65,17 @@ struct ProductCardView: View {
     
     private var infoSection: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(product.name)
+            Text(vm.product.name)
                 .font(.subheadline)
                 .fontWeight(.bold)
                 .lineLimit(1)
             
-            Text(product.type.rawValue)
+            Text(vm.product.type.rawValue)
                 .font(.caption)
                 .foregroundStyle(Color.textMuted)
             
             HStack(alignment: .center) {
-                Text(product.price, format: .currency(code: "USD"))
+                Text(vm.product.price, format: .currency(code: "USD"))
                     .font(.subheadline)
                     .fontWeight(.bold)
                     .foregroundStyle(.black)
@@ -110,8 +112,8 @@ struct ProductCardView: View {
             imageURL1: "",
             imageURL2: "",
             availableSizes: [40, 41],
-            availableColors: ["black"]
-        )
+            availableColors: ["black"]),
+        favoritesManager: FavoritesManager()
     )
     .frame(width: 170)
     .padding()

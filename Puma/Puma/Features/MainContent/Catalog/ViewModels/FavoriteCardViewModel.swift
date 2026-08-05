@@ -2,7 +2,9 @@ import Foundation
 
 
 @Observable
-final class FavoriteCardViewModel {
+final class FavoriteCardViewModel: UnavailablePurchasable {
+    private let cartManager: CartManager
+    
     let product: Product
     
     var selectedSize: Int
@@ -13,8 +15,9 @@ final class FavoriteCardViewModel {
     var isShowingUnavailableAlert = false
     var isShowingAddToCartAlert = false
     
-    init(product: Product) {
+    init(product: Product, cartManager: CartManager) {
         self.product = product
+        self.cartManager = cartManager
         self.selectedSize = product.availableSizes.min() ?? 0
         self.selectedColor = product.availableColors.first ?? ""
     }
@@ -24,12 +27,9 @@ final class FavoriteCardViewModel {
         ProductColor(rawValue: selectedColor)
     }
     
-    var originalPrice: Double {
-        product.price + 50
-    }
-    
-    
-    func buyNowTapped() {
-        isShowingUnavailableAlert = true
+
+    func addToCart() {
+        cartManager.addToCart(product: product, size: selectedSize, color: selectedColor)
+        isShowingAddToCartAlert = true
     }
 }

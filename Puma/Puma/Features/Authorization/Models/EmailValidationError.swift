@@ -5,6 +5,7 @@ enum EmailValidationError: LocalizedError, Equatable {
     case empty
     case invalidFormat
 
+
     var errorDescription: String? {
         switch self {
         case .empty: return "Please enter your email"
@@ -13,6 +14,7 @@ enum EmailValidationError: LocalizedError, Equatable {
     }
 }
 
+
 enum PasswordValidationError: LocalizedError, Equatable {
     case empty
     case tooShort
@@ -20,6 +22,7 @@ enum PasswordValidationError: LocalizedError, Equatable {
     case missingCharacter
     case custom(String)
 
+    
     var errorDescription: String? {
         switch self {
         case .empty: return "Please enter a password"
@@ -31,10 +34,12 @@ enum PasswordValidationError: LocalizedError, Equatable {
     }
 }
 
+
 enum SignInPasswordError: LocalizedError, Equatable {
     case empty
     case custom(String)
 
+    
     var errorDescription: String? {
         switch self {
         case .empty: return "Please enter your password"

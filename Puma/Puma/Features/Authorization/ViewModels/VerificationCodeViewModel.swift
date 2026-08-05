@@ -19,15 +19,6 @@ final class VerificationCodeViewModel {
     private let totalSeconds = 60
     private var countdownEndDate: Date?
     
-    init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol, session: SessionManager) {
-        self.coordinator = coordinator
-        self.email = email
-        self.authService = authService
-        self.session = session
-        self.secondsRemaining = totalSeconds
-        startCountdown()
-    }
-    
     var isTimerFinished: Bool {
         secondsRemaining <= 0
     }
@@ -36,6 +27,15 @@ final class VerificationCodeViewModel {
         let minutes = secondsRemaining / 60
         let seconds = secondsRemaining % 60
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol, session: SessionManager) {
+        self.coordinator = coordinator
+        self.email = email
+        self.authService = authService
+        self.session = session
+        self.secondsRemaining = totalSeconds
+        startCountdown()
     }
     
     deinit {

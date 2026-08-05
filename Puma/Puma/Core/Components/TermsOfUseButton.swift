@@ -2,10 +2,10 @@ import SwiftUI
 
 
 struct TermsOfUseButton: View {
-    var onTap: () -> Void = { }
-
     @State private var isShowingTerms = false
-
+    
+    var onTap: () -> Void = { }
+    
     
     var body: some View {
         Button {

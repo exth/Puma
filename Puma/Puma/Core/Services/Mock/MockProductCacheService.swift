@@ -5,6 +5,7 @@ import Foundation
 final class MockProductCacheService: ProductCacheServiceProtocol {
     var cachedProducts: [Product]?
     
+    
     func loadCachedProducts() -> [Product]? {
         cachedProducts
     }

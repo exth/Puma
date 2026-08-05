@@ -22,7 +22,6 @@ struct RootView: View {
                 }
             }
             .transition(.opacity)
-
         }
     }
 }

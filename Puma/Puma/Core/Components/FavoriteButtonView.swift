@@ -7,6 +7,7 @@ struct FavoriteButtonView: View {
     var showsShadow: Bool = true
     let action: () -> Void
     
+    
     var body: some View {
         Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {

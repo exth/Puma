@@ -3,11 +3,14 @@ import SwiftUI
 struct CatalogView: View {
     @State private var vm = CatalogViewModel()
     @State private var coordinator = CatalogFlowCoordinator()
-    @Namespace private var animation
-    @FocusState private var isSearchFocused: Bool
     
     @Environment(FavoritesManager.self) private var favoritesManager
+    @Environment(CartManager.self) private var cartManager
     
+    @FocusState private var isSearchFocused: Bool
+    
+    @Namespace private var animation
+
     private let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible(), spacing: 16)
@@ -31,7 +34,7 @@ struct CatalogView: View {
                 .navigationDestination(for: CatalogScreens.self) { screen in
                     switch screen {
                     case .productDetail(let product):
-                        ProductDetailView(product: product)
+                        ProductDetailView(product: product, cartManager: cartManager)
                     case .favorite:
                         FavoriteView(favoritesManager: favoritesManager)
                     }
@@ -142,7 +145,7 @@ struct CatalogView: View {
                 Button {
                     coordinator.showProductDetail(product)
                 } label: {
-                    ProductCardView(product: product)
+                    ProductCardView(product: product, favoritesManager: favoritesManager)
                 }
                 .buttonStyle(.plain)
             }
@@ -185,4 +188,3 @@ struct CatalogView: View {
     CatalogView()
         .environment(FavoritesManager())
 }
-

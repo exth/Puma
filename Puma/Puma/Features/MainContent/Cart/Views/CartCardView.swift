@@ -4,6 +4,7 @@ import Kingfisher
 
 struct CartCardView: View {
     @State private var vm: CartCardViewModel
+    
     let onRemove: () -> Void
     
     init(item: CartItem, onRemove: @escaping () -> Void) {
@@ -128,8 +129,7 @@ struct CartCardView: View {
                 .font(.subheadline)
                 .fontWeight(.bold)
             
-            Text(vm.originalPrice, format: .currency(code: "USD"))
-                .font(.caption)
+            Text(vm.item.product.originalPrice, format: .currency(code: "USD"))                .font(.caption)
                 .foregroundStyle(Color.textMuted)
                 .strikethrough()
         }

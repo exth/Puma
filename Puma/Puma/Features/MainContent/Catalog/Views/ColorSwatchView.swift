@@ -7,6 +7,7 @@ struct ColorSwatchView: View {
     let isSelected: Bool
     let action: () -> Void
     
+    
     var body: some View {
         Button(action: action) {
             Circle()

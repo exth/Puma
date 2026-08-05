@@ -2,9 +2,9 @@ import SwiftUI
 
 
 struct CartView: View {
-    let onShowCatalog: () -> Void
-    
     @State private var vm: CartViewModel
+    
+    let onShowCatalog: () -> Void
     
     init(cartManager: CartManager, onShowCatalog: @escaping () -> Void) {
         _vm = State(initialValue: CartViewModel(cartManager: cartManager))

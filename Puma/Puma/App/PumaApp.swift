@@ -26,6 +26,7 @@ struct PumaApp: App {
         ImageCache.default.memoryStorage.config.totalCostLimit = 50 * 1024 * 1024
     }
     
+    
     var body: some Scene {
         WindowGroup {
             RootView()

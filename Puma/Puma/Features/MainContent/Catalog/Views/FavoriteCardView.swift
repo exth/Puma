@@ -4,11 +4,11 @@ import Kingfisher
 
 struct FavoriteCardView: View {
     @State private var vm: FavoriteCardViewModel
-    @Environment(CartManager.self) private var cartManager
+    
     let onRemoveFavorite: () -> Void
     
-    init(product: Product, onRemoveFavorite: @escaping () -> Void) {
-        _vm = State(initialValue: FavoriteCardViewModel(product: product))
+    init(product: Product, cartManager: CartManager, onRemoveFavorite: @escaping () -> Void) {
+        _vm = State(initialValue: FavoriteCardViewModel(product: product, cartManager: cartManager))
         self.onRemoveFavorite = onRemoveFavorite
     }
     
@@ -96,7 +96,7 @@ struct FavoriteCardView: View {
                 .font(.subheadline)
                 .fontWeight(.bold)
             
-            Text(vm.originalPrice, format: .currency(code: "USD"))
+            Text(vm.product.originalPrice, format: .currency(code: "USD"))
                 .font(.caption)
                 .foregroundStyle(Color.textMuted)
                 .strikethrough()
@@ -161,12 +161,7 @@ struct FavoriteCardView: View {
             }
             
             Button {
-                cartManager.addToCart(
-                    product: vm.product,
-                    size: vm.selectedSize,
-                    color: vm.selectedColor
-                )
-                vm.isShowingAddToCartAlert = true
+                vm.addToCart()
             } label: {
                 Text("Add to cart")
                     .font(.caption)
@@ -183,7 +178,6 @@ struct FavoriteCardView: View {
             }
         }
     }
-    
     
     private var sizePickerSheet: some View {
         VStack(spacing: 0) {
@@ -240,8 +234,8 @@ struct FavoriteCardView: View {
             imageURL1: "",
             imageURL2: "",
             availableSizes: [38, 40, 41, 43],
-            availableColors: ["black", "red"]
-        ),
+            availableColors: ["black", "red"]),
+        cartManager: CartManager(),
         onRemoveFavorite: { }
     )
     .padding()

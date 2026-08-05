@@ -2,7 +2,7 @@ import Foundation
 
 
 @Observable
-final class CartCardViewModel {
+final class CartCardViewModel: UnavailablePurchasable {
     let item: CartItem
     
     var isShowingUnavailableAlert = false
@@ -14,14 +14,5 @@ final class CartCardViewModel {
     
     var selectedProductColor: ProductColor? {
         ProductColor(rawValue: item.selectedColor)
-    }
-    
-    var originalPrice: Double {
-        item.product.price + 50
-    }
-    
-    
-    func buyNowTapped() {
-        isShowingUnavailableAlert = true
     }
 }

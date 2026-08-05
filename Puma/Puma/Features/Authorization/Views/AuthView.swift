@@ -12,6 +12,7 @@ struct AuthView: View {
         _vm = State(initialValue: AuthViewModel(session: session, authService: authService))
     }
     
+    
     var body: some View {
         @Bindable var vm = vm
         
@@ -98,7 +99,6 @@ struct AuthView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .disabled(vm.isLoading)
     }
-    
     
     private var googleButton: some View {
         Button {

@@ -5,12 +5,14 @@ struct PasswordInputView: View {
     let coordinator: AuthFlowCoordinator
     
     @State private var vm: PasswordInputViewModel
+    
     @FocusState private var isPasswordFocused: Bool
     
     init(coordinator: AuthFlowCoordinator, email: String, authService: AuthServiceProtocol) {
         self.coordinator = coordinator
         _vm = State(initialValue: PasswordInputViewModel(email: email, coordinator: coordinator, authService: authService))
     }
+    
     
     var body: some View {
         VStack(spacing: 0) {

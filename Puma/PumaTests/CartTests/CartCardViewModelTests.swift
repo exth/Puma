@@ -2,6 +2,7 @@ import XCTest
 @testable import Puma
 
 
+@MainActor
 final class CartCardViewModelTests: XCTestCase {
     var vm: CartCardViewModel!
     
@@ -27,7 +28,7 @@ final class CartCardViewModelTests: XCTestCase {
     
     
     func test_originalPrice_shouldBePricePlusFifty() {
-        XCTAssertEqual(vm.originalPrice, 150)
+        XCTAssertEqual(vm.item.product.originalPrice, 150)
     }
     
     func test_buyNowTapped_shouldShowUnavailableAlert() {

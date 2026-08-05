@@ -3,6 +3,7 @@ import SwiftUI
 
 struct AuthFlowContainerView: View {
     @State private var coordinator = AuthFlowCoordinator()
+    
     @Environment(SessionManager.self) private var session
     @Environment(FirebaseAuthService.self) private var authService
     @Environment(\.dismiss) private var dismissSheet

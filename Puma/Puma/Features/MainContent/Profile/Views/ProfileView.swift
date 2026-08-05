@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var vm: ProfileViewModel
+    
     @Environment(\.openURL) private var openURL
 
     init(session: SessionManager) {

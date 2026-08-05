@@ -2,15 +2,17 @@ import SwiftUI
 
 
 struct SecurePasswordFieldBox: View {
+    @Binding var text: String
+    
+    @State private var isPasswordVisible = false
+
     var title: String = "Password"
     var placeholder: String = "Enter password"
-    @Binding var text: String
     let errorMessage: String?
     var showsInlineError: Bool = true
     var focusedField: FocusState<Bool>.Binding
     var contentType: UITextContentType = .password
 
-    @State private var isPasswordVisible = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -63,6 +65,7 @@ struct SecurePasswordFieldBox: View {
         .animation(.easeInOut(duration: 0.2), value: errorMessage)
     }
 
+    
     private var borderColor: Color {
         if errorMessage != nil { return Color.errorRed }
         return focusedField.wrappedValue ? Color.textSecondary : Color.borderDefault

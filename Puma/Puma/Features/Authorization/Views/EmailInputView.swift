@@ -5,7 +5,9 @@ struct EmailInputView: View {
     let coordinator: AuthFlowCoordinator
     
     @State private var vm = EmailInputViewModel()
+    
     @FocusState private var isEmailFocused: Bool
+    
     
     var body: some View {
         VStack(spacing: 0) {

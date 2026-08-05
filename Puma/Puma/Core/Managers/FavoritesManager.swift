@@ -32,7 +32,6 @@ final class FavoritesManager {
         saveFavorites()
     }
     
-    
     private func loadFavorites() {
         guard let data = UserDefaults.standard.data(forKey: storageKey),
               let products = try? JSONDecoder().decode([Product].self, from: data)

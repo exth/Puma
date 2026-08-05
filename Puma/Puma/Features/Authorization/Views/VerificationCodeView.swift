@@ -14,6 +14,7 @@ struct VerificationCodeView: View {
         _vm = State(initialValue: VerificationCodeViewModel(coordinator: coordinator, email: email, authService: authService, session: session))
     }
     
+    
     var body: some View {
         VStack(spacing: 0) {
             headerSection
@@ -59,6 +60,7 @@ struct VerificationCodeView: View {
         }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase == .active {
+                vm.recalculateCountdown()
                 vm.checkVerificationNow()
             }
         }

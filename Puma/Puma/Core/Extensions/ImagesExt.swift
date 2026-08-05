@@ -8,5 +8,4 @@ extension Image {
     
     static let appleLogo = Image("Images/AppleLogo")
     static let googlelogo = Image("Images/GoogleLogo")
-
 }

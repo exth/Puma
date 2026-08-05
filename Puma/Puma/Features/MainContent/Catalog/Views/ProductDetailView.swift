@@ -5,13 +5,13 @@ import Kingfisher
 struct ProductDetailView: View {
     @State private var vm: ProductDetailViewModel
     @State private var isFavorite = false
-    @Environment(CartManager.self) private var cartManager
+    
     @Environment(\.dismiss) private var dismiss
     
     private let imageCardHeight: CGFloat = 250
     
-    init(product: Product) {
-        _vm = State(initialValue: ProductDetailViewModel(product: product))
+    init(product: Product, cartManager: CartManager) {
+        _vm = State(initialValue: ProductDetailViewModel(product: product, cartManager: cartManager))
     }
     
     
@@ -124,8 +124,7 @@ struct ProductDetailView: View {
                     .font(.title3)
                     .fontWeight(.bold)
                 
-                Text(vm.originalPrice, format: .currency(code: "USD"))
-                    .font(.subheadline)
+                Text(vm.product.originalPrice, format: .currency(code: "USD"))                    .font(.subheadline)
                     .foregroundStyle(Color.textMuted)
                     .strikethrough()
             }
@@ -216,10 +215,7 @@ struct ProductDetailView: View {
             .opacity(vm.canPurchase ? 1 : 0.4)
             
             Button {
-                if let size = vm.selectedSize, let color = vm.selectedColor {
-                    cartManager.addToCart(product: vm.product, size: size, color: color.rawValue)
-                    vm.isShowingAddToCartAlert = true
-                }
+                vm.addToCart()
             } label: {
                 Text("Add to cart")
                     .font(.subheadline)
@@ -253,8 +249,8 @@ struct ProductDetailView: View {
                 imageURL1: "",
                 imageURL2: "",
                 availableSizes: [38, 39, 41, 43],
-                availableColors: ["black", "red"]
-            )
+                availableColors: ["black", "red"]),
+            cartManager: CartManager()
         )
     }
     .environment(CartManager())

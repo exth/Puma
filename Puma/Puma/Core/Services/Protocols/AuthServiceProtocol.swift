@@ -7,10 +7,7 @@ protocol AuthServiceProtocol {
     func resendVerificationEmail() async throws
     func reloadCurrentUser() async throws -> Bool
     func sendPasswordReset(email: String) async throws
-
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws
-    
     func signInWithGoogle() async throws
-    
     func deleteAccount() async throws
 }

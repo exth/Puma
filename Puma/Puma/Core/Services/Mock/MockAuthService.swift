@@ -21,7 +21,6 @@ final class MockAuthService: AuthServiceProtocol {
             throw errorToThrow
         }
     }
- 
     
     func signIn(email: String, password: String) async throws {
         signInCalled = true
@@ -29,7 +28,6 @@ final class MockAuthService: AuthServiceProtocol {
             throw errorToThrow
         }
     }
- 
     
     func resendVerificationEmail() async throws {
         resendVerificationCalled = true
@@ -37,7 +35,6 @@ final class MockAuthService: AuthServiceProtocol {
             throw errorToThrow
         }
     }
- 
     
     func reloadCurrentUser() async throws -> Bool {
         reloadCurrentUserCalled = true
@@ -47,7 +44,6 @@ final class MockAuthService: AuthServiceProtocol {
         return isEmailVerifiedToReturn
     }
  
-    
     func sendPasswordReset(email: String) async throws {
         sendPasswordResetCalled = true
         if let errorToThrow {
@@ -55,21 +51,18 @@ final class MockAuthService: AuthServiceProtocol {
         }
     }
  
-    
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws {
         if let errorToThrow {
             throw errorToThrow
         }
     }
  
-    
     func signInWithGoogle() async throws {
         signInWithGoogleCalled = true
         if let errorToThrow {
             throw errorToThrow
         }
     }
-    
     
     func deleteAccount() async throws {
         deleteAccountCalled = true

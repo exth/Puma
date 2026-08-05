@@ -12,3 +12,10 @@ struct Product: Codable, Identifiable, Hashable {
     let availableSizes: [Int]
     let availableColors: [String]
 }
+
+
+extension Product {
+    var originalPrice: Double {
+        price + 50
+    }
+}

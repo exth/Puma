@@ -34,6 +34,7 @@ enum AuthServiceError: LocalizedError {
     }
 }
 
+
 extension NSError {
     var firebaseAuthErrorMessage: String {
         guard let errorCode = AuthErrorCode(rawValue: code) else {

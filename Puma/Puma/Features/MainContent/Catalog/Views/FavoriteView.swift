@@ -3,6 +3,8 @@ import SwiftUI
 
 struct FavoriteView: View {
     @State private var vm: FavoriteViewModel
+    
+    @Environment(CartManager.self) private var cartManager
     @Environment(\.dismiss) private var dismiss
     
     init(favoritesManager: FavoritesManager) {
@@ -58,7 +60,7 @@ struct FavoriteView: View {
         ScrollView {
             VStack(spacing: 16) {
                 ForEach(vm.favoriteProducts) { product in
-                    FavoriteCardView(product: product) {
+                    FavoriteCardView(product: product, cartManager: cartManager) {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             vm.removeFavorite(product)
                         }

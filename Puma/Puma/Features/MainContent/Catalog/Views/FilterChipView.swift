@@ -7,6 +7,7 @@ struct FilterChipView: View {
     let namespace: Namespace.ID
     let action: () -> Void
     
+    
     var body: some View {
         Button(action: action) {
             Text(filter.rawValue)

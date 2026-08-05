@@ -25,7 +25,6 @@ final class CartManager {
         saveCart()
     }
     
-    
     private func loadCart() {
         guard let data = UserDefaults.standard.data(forKey: storageKey),
               let items = try? JSONDecoder().decode([CartItem].self, from: data)

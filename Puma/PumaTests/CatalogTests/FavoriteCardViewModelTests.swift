@@ -2,6 +2,7 @@ import XCTest
 @testable import Puma
 
 
+@MainActor
 final class FavoriteCardViewModelTests: XCTestCase {
     var vm: FavoriteCardViewModel!
     
@@ -12,7 +13,7 @@ final class FavoriteCardViewModelTests: XCTestCase {
             description: "", imageURL1: "", imageURL2: "",
             availableSizes: [40, 41], availableColors: ["black", "red"]
         )
-        vm = FavoriteCardViewModel(product: product)
+        vm = FavoriteCardViewModel(product: product, cartManager: CartManager())
     }
     
     override func tearDown() {

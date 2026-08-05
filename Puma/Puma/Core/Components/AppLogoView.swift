@@ -8,6 +8,7 @@ struct AppLogoView: View {
         self.size = size
     }
     
+    
     var body: some View {
         Image.pumaLogo
             .resizable()

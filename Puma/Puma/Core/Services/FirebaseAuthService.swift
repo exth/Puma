@@ -10,11 +10,9 @@ final class FirebaseAuthService: AuthServiceProtocol {
         try await result.user.sendEmailVerification()
     }
     
-    
     func signIn(email: String, password: String) async throws {
         _ = try await Auth.auth().signIn(withEmail: email, password: password)
     }
-    
     
     func resendVerificationEmail() async throws {
         guard let user = Auth.auth().currentUser else {
@@ -22,7 +20,6 @@ final class FirebaseAuthService: AuthServiceProtocol {
         }
         try await user.sendEmailVerification()
     }
-    
     
     func reloadCurrentUser() async throws -> Bool {
         guard let user = Auth.auth().currentUser else {
@@ -32,11 +29,9 @@ final class FirebaseAuthService: AuthServiceProtocol {
         return user.isEmailVerified
     }
     
-    
     func sendPasswordReset(email: String) async throws {
         try await Auth.auth().sendPasswordReset(withEmail: email)
     }
-    
     
     func signInWithApple(idToken: String, rawNonce: String, fullName: PersonNameComponents?) async throws {
         let credential = OAuthProvider.appleCredential(
@@ -54,7 +49,6 @@ final class FirebaseAuthService: AuthServiceProtocol {
             try await changeRequest?.commitChanges()
         }
     }
-    
     
     func signInWithGoogle() async throws {
         guard let clientID = FirebaseApp.app()?.options.clientID else {
@@ -88,7 +82,6 @@ final class FirebaseAuthService: AuthServiceProtocol {
             throw error
         }
     }
-    
     
     func deleteAccount() async throws {
         guard let user = Auth.auth().currentUser else {

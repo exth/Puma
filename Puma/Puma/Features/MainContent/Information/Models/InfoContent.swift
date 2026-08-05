@@ -1,5 +1,6 @@
 import Foundation
 
+
 enum InfoContent {
     static let brandDescription = "PUMA is a major German sportswear brand founded in 1948, known for creating comfortable footwear designed for sports and everyday wear"
     static let founderVision = "Rudolf Dassler, the founder of PUMA, envisioned the brand as more than just footwear — he sought to drive innovation and shape a sports lifestyle that blends performance with style"
