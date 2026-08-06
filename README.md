@@ -36,29 +36,29 @@
 
 
 ## Overview
-**Puma** is an independent, non-commercial demo e-commerce app inspired by the official PUMA shopping experience. Users can sign up or sign in, browse a live product catalog pulled from Firebase, save favorites, build a cart, and manage their account — all within a custom-built interface.
+**Puma** is an independent, non-commercial demo app built as a personal pet project. Users can sign up or sign in, browse a live product catalog pulled from Firebase, save favorites, build a cart, and manage their account — all within a custom-built interface.
 
-The app is fully functional on iPhone and works well on iPad, though the iPad layout would need further polish for a full App Store release targeting tablets. The entire backend — authentication, product data, and account management — is powered by **Firebase**.
+The app is fully functional on iPhone and works correctly on iPad, though the iPad layout would need further refinement for a full App Store release targeting tablets. The entire backend — authentication, product data, and account management — is powered by **Firebase**.
 
 
 ## Features
-#### Authentication
+### Authentication
 - Sign in with Apple or Google
-- Custom email/password flow: format validation, live password rules, email verification with auto-detect, and "Forgot Password" reset
+- Custom email/password flow: format validation, live password rules, email verification, and "Forgot Password?" reset
 - Persistent session, sign out, and two-step account deletion
-#### Info
+### Info
 - First-login brand story screen covering PUMA's history and founder, Rudolf Dassler
-#### Catalog
+### Catalog
 - Live product list from Cloud Firestore, with local caching for instant loads
 - Category filters, live search, pull-to-refresh, and a retryable network error state
-#### Product Details
+### Product Details
 - Image carousel with size/color selection and real-time availability
 - Add to Cart / Buy Now — Buy Now shows a "coming soon" alert and redirects to the official PUMA site, as no real transactions are processed
-#### Favorites
+### Favorites
 - Add/remove from product cards, dedicated screen with quick "Add to Cart", empty state
-#### Cart
+### Cart
 - Add items with the selected size and color, animated removal, empty state with a link back to the catalog
-#### Profile
+### Profile
 - Clear local cache, delete account, sign out
 - Link to the official PUMA website, in-app Terms of Use page, app version display
 
@@ -82,10 +82,10 @@ Firebase-backed services are abstracted behind protocols with mock implementatio
 
 
 ## Design
-UI/UX designed and prototyped from scratch by the author, then implemented natively in SwiftUI.
+UI/UX designed and prototyped from scratch by the author, then implemented in SwiftUI.
 
 
 ## Disclaimer
-This app is an independent, unofficial project built for educational and portfolio purposes only. It is **not affiliated with, endorsed by, or connected to PUMA SE** in any way, and does not process real purchases. To buy real products, visit the [official PUMA website](https://us.puma.com).
+This app is an independent, unofficial project built for educational and portfolio purposes only. It is **not affiliated with, endorsed by, or connected to PUMA** in any way, and does not process real purchases. To buy real products, visit the [official PUMA website](https://us.puma.com).
 
 <p align="center">Built by <strong>Exthxrn</strong></p>
