@@ -37,6 +37,7 @@
 
 ## Overview
 **Puma** is an independent, non-commercial demo e-commerce app inspired by the official PUMA shopping experience. Users can sign up or sign in, browse a live product catalog pulled from Firebase, save favorites, build a cart, and manage their account — all within a custom-built interface.
+
 The app is fully functional on iPhone and works well on iPad, though the iPad layout would need further polish for a full App Store release targeting tablets. The entire backend — authentication, product data, and account management — is powered by **Firebase**.
 
 
@@ -76,6 +77,7 @@ The app is fully functional on iPhone and works well on iPad, though the iPad la
 ## Testing
 Dedicated `XCTest` suite covering:
 - `AuthorizationTests`, `CartTests`, `CatalogTests`, `CoreTests`, `ProfileTests`
+
 Firebase-backed services are abstracted behind protocols with mock implementations (`MockAuthService`, `MockProductService`, `MockProductCacheService`), so every ViewModel can be tested in isolation without a live network or Firebase project.
 
 
@@ -85,4 +87,5 @@ UI/UX designed and prototyped from scratch by the author, then implemented nativ
 
 ## Disclaimer
 This app is an independent, unofficial project built for educational and portfolio purposes only. It is **not affiliated with, endorsed by, or connected to PUMA SE** in any way, and does not process real purchases. To buy real products, visit the [official PUMA website](https://us.puma.com).
+
 <p align="center">Built by <strong>Exthxrn</strong></p>
