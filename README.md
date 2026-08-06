@@ -1,4 +1,4 @@
-<h1 align="center">Puma — iOS Sneaker Store</h1>
+<h1 align="center">Puma — iOS Sneaker Shop</h1>
  
 <p align="center">
   A fully-featured e-commerce app for browsing and shopping PUMA sneakers, built with SwiftUI, Firebase and MVVM
