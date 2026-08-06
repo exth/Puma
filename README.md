@@ -88,4 +88,4 @@ UI/UX designed and prototyped from scratch by the author, then implemented in Sw
 ## Disclaimer
 This app is an independent, unofficial project built for educational and portfolio purposes only. It is **not affiliated with, endorsed by, or connected to PUMA** in any way, and does not process real purchases. To buy real products, visit the [official PUMA website](https://us.puma.com).
 
-<p align="center">Built by <strong>Exthxrn</strong></p>
+<p align="center">Created by <strong>Exthxrn</strong></p>
