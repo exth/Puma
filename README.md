@@ -4,17 +4,15 @@
   A fully-featured e-commerce app for browsing and shopping PUMA sneakers, built with SwiftUI, Firebase and MVVM.
 </p>
 
+
 ## Table of Contents
 - [Screenshots](#screenshots)
 - [Overview](#overview)
 - [Features](#features)
-- [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [Testing](#testing)
 - [Design](#design)
-- [Requirements](#requirements)
 - [Disclaimer](#disclaimer)
-- [Author](#author)
   
 
 ## Screenshots
@@ -43,23 +41,23 @@ The app is fully functional on iPhone and works well on iPad, though the iPad la
 
 
 ## Features
-### Authentication
+#### Authentication
 - Sign in with Apple or Google
 - Custom email/password flow: format validation, live password rules, email verification with auto-detect, and "Forgot Password" reset
 - Persistent session, sign out, and two-step account deletion
-### Info
+#### Info
 - First-login brand story screen covering PUMA's history and founder, Rudolf Dassler
-### Catalog
+#### Catalog
 - Live product list from Cloud Firestore, with local caching for instant loads
 - Category filters, live search, pull-to-refresh, and a retryable network error state
-### Product Details
+#### Product Details
 - Image carousel with size/color selection and real-time availability
 - Add to Cart / Buy Now — Buy Now shows a "coming soon" alert and redirects to the official PUMA site, as no real transactions are processed
-### Favorites
+#### Favorites
 - Add/remove from product cards, dedicated screen with quick "Add to Cart", empty state
-### Cart
+#### Cart
 - Add items with the selected size and color, animated removal, empty state with a link back to the catalog
-### Profile
+#### Profile
 - Clear local cache, delete account, sign out
 - Link to the official PUMA website, in-app Terms of Use page, app version display
 
@@ -81,6 +79,10 @@ Dedicated `XCTest` suite covering:
 Firebase-backed services are abstracted behind protocols with mock implementations (`MockAuthService`, `MockProductService`, `MockProductCacheService`), so every ViewModel can be tested in isolation without a live network or Firebase project.
 
 
+## Design
+UI/UX designed and prototyped from scratch by the author, then implemented natively in SwiftUI.
+
+
 ## Disclaimer
 This app is an independent, unofficial project built for educational and portfolio purposes only. It is **not affiliated with, endorsed by, or connected to PUMA SE** in any way, and does not process real purchases. To buy real products, visit the [official PUMA website](https://us.puma.com).
-<p align="center">Built by **Exthxrn**</p>
+<p align="center">Built by <strong>Exthxrn</strong></p>
